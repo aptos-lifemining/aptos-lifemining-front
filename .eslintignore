@@ -1,0 +1,4 @@
+node_modules
+cypress
+lint-staged.config.js
+next.config.js

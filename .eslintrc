@@ -1,0 +1,50 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "simple-import-sort",
+    "import",
+    "react",
+    "react-hooks",
+    "prettier"
+  ],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": "warn",
+    "react/jsx-filename-extension": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/require-default-props": "off", // defaultProps 옵션
+    "react/react-in-jsx-scope": "off", // React default import 옵션
+    "react/no-unescaped-entities": "off", // "" 인식 옵션
+    "no-console": "off", // console.log 옵션
+    "no-alert": "off", // alert&confirm 옵션
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off", // ts-ignore 옵션
+    // import 순서 옵션
+    "simple-import-sort/exports": "warn",
+    "simple-import-sort/imports": [
+      "warn",
+      {
+        "groups": [
+          // react, next 패키지
+          ["^react", "^next"],
+          // 내부 & 외부 components
+          ["^\\u0000", "^@?\\w", "^(@|components)(/.*|$)"],
+          // 상대경로
+          [
+            "^\\.\\.(?!/?$)",
+            "^\\.\\./?$",
+            "^\\./(?=.*/)(?!/?$)",
+            "^\\.(?!/?$)",
+            "^\\./?$"
+          ]
+        ]
+      }
+    ]
+  }
+}
