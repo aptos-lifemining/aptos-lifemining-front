@@ -11,8 +11,11 @@ const nextConfig = {
 
     return config;
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
+  experimental: {
+    transpilePackages: ['wallet-adapter-react'],
+  },
 };
 
 module.exports = nextConfig;
