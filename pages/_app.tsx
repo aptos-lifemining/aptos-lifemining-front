@@ -3,8 +3,7 @@ import { PetraWallet } from 'petra-plugin-wallet-adapter';
 import { AptosWalletAdapterProvider } from '@aptos-labs/wallet-adapter-react';
 
 import '../styles/globals.css';
-import DefaultLayout from '../components/DefaultLayout';
-
+import '../public/font/style.css';
 declare global {
   interface Window {
     aptos: any;
