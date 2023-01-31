@@ -22,6 +22,7 @@ const HeaderContainer = styled.div`
   top: 0;
   z-index: 100;
   background: #ffffff;
+  max-width: 768px;
 `;
 
 const LogoIcon = styled(Logo)`
