@@ -2,36 +2,38 @@ import React from 'react';
 
 import styled from 'styled-components';
 import Image from 'next/image';
+import ProfileIcon from './ProfileIcon';
 
 export default function Stories() {
   return (
     <StoriesContainer>
       <div className="swiper-container">
         <StoryBubble>
-          <div className="avatar">
-            <Image src={'/img/sample.png'} width={58} height={58} alt="" />
-          </div>
+          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
           <div className="user-nickname">#putdownfkjasldfddf</div>
         </StoryBubble>
-
         <StoryBubble>
-          <div className="avatar">
-            <Image src={'/img/sample.png'} width={58} height={58} alt="" />
-          </div>
+          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
           <div className="user-nickname">#putdownfkjasldfddf</div>
         </StoryBubble>
-
         <StoryBubble>
-          <div className="avatar">
-            <Image src={'/img/sample.png'} width={58} height={58} alt="" />
-          </div>
+          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
           <div className="user-nickname">#putdownfkjasldfddf</div>
         </StoryBubble>
-
         <StoryBubble>
-          <div className="avatar">
-            <Image src={'/img/sample.png'} width={58} height={58} alt="" />
-          </div>
+          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
+          <div className="user-nickname">#putdownfkjasldfddf</div>
+        </StoryBubble>
+        <StoryBubble>
+          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
+          <div className="user-nickname">#putdownfkjasldfddf</div>
+        </StoryBubble>
+        <StoryBubble>
+          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
+          <div className="user-nickname">#putdownfkjasldfddf</div>
+        </StoryBubble>
+        <StoryBubble>
+          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
           <div className="user-nickname">#putdownfkjasldfddf</div>
         </StoryBubble>
 
@@ -90,6 +92,7 @@ const StoryBubble = styled.div`
     position: relative;
     border-radius: 50%;
     padding: 4px;
+    border: 1.5px dashed;
     background-image: linear-gradient(to right top, rgba(86, 174, 255, 1), rgba(0, 26, 255, 1));
 
     :before {
@@ -123,7 +126,7 @@ const StoryBubble = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    font-family: 'Inter Tight';
+    font-family: InterTight;
     font-style: normal;
     font-weight: 600;
     font-size: 9px;
