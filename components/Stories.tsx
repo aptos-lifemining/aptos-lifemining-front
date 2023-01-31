@@ -36,13 +36,6 @@ export default function Stories() {
           <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
           <div className="user-nickname">#putdownfkjasldfddf</div>
         </StoryBubble>
-
-        <StoryBubble>
-          <div className="avatar">
-            <Image src={'/img/sample.png'} width={58} height={58} alt="" />
-          </div>
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
       </div>
     </StoriesContainer>
   );
