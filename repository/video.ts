@@ -28,8 +28,10 @@ class VideoRepositoryImpl implements VideoRepository {
     return data;
   }
 
-  public async uploadVideo(info: any) {
-    const { data } = await this.client.post(`/videos`, info);
+  public async uploadVideo(fromData: any) {
+    const { data } = await this.client.post(`/videos`, fromData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
 
     return data;
   }

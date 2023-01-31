@@ -1,65 +1,34 @@
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
-import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import Globe from '../public/svg/globe.svg';
 import Building from '../public/svg/building.svg';
-import Upload from '../public/svg/upload.svg';
 import Gift from '../public/svg/gift.svg';
+import Globe from '../public/svg/globe.svg';
+import Upload from '../public/svg/upload.svg';
 import User from '../public/svg/user.svg';
 
 export default function BottomNavigation() {
-  const [video, setVideo] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      console.log(file);
-      setVideo(file);
-      setPreviewUrl(reader.result);
       Router.push(
         {
-          pathname: '/video/create',
+          pathname: '/video/upload',
           query: {
             videoUrl: reader.result,
+            fileName: file.name,
           },
         },
-        'video/create',
+        'video/upload',
       );
     };
 
     reader.readAsDataURL(file);
-  };
-
-  const handleUpload = async () => {
-    setLoading(true);
-
-    const formData = new FormData();
-    formData.append('video', video);
-
-    try {
-      const res = await fetch('https://your-server-endpoint.com/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) {
-        throw new Error('Failed to upload video');
-      }
-
-      alert('Video uploaded successfully!');
-    } catch (err) {
-      console.error(err);
-      alert('Failed to upload video');
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
@@ -80,7 +49,7 @@ export default function BottomNavigation() {
             id="upload-input"
             type="file"
             onChange={handleFileChange}
-            accept="video/*"
+            accept="video/*, image/gif, image/jpeg, image/png"
             style={{
               display: 'none',
             }}
