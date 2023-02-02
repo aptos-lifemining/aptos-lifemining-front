@@ -6,21 +6,26 @@ import CreateChallenge from '../components/CreateChallenge';
 import DefaultLayout from '../components/DefaultLayout';
 import Header from '../components/Header';
 import Stories from '../components/Stories';
-import { challengeCategory } from '../database/home';
 
-export default function HomeTemplate() {
+export default function HomeTemplate({ challenges }) {
   return (
     <DefaultLayout>
       <Header />
       <Stories />
       <Challenges
-        challenges={challengeCategory.find((obj) => obj.title === '💪 Work out').challenges}
+        challenges={challenges.filter((obj) => obj.type === 'development')}
+        title="Development"
+        key={challenges.filter((obj) => obj.type === 'development').id}
       />
       <Challenges
-        challenges={challengeCategory.find((obj) => obj.title === '💪 Work out').challenges}
+        challenges={challenges.filter((obj) => obj.type === 'excercise')}
+        title="excercise"
+        key={challenges.filter((obj) => obj.type === 'excercise').id}
       />
       <Challenges
-        challenges={challengeCategory.find((obj) => obj.title === '💪 Work out').challenges}
+        challenges={challenges.filter((obj) => obj.type === 'writing')}
+        title="writing"
+        key={challenges.filter((obj) => obj.type === 'writing').id}
       />
       <CreateChallenge />
       <BottomNavigation />

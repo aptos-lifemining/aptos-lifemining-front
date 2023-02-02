@@ -1,48 +1,60 @@
+import React from 'react';
 import Image from 'next/image';
 import Router from 'next/router';
-import React from 'react';
 
-import styled, { css } from 'styled-components';
-import { IChallengeCategory } from '../database/home';
+import styled from 'styled-components';
 
+import { Challenge } from '../entity/challenge';
 import Aptos from '../public/svg/aptos.svg';
 
 interface Props {
-  challenges: IChallengeCategory['challenges'];
+  challenges: Challenge[];
+  title: string;
 }
 
-export default function Challenges({ challenges }: Props) {
-  const handleClickCard = () => {
-    Router.push('/challenge/1');
+export default function Challenges({ challenges, title }: Props) {
+  const handleClickCard = (id: string) => {
+    Router.push(`/challenge/${id}`);
   };
-
+  console.log('challenges in components', challenges);
   return (
     <React.Fragment>
       <ChallengesContainer>
         <Category>
-          <div className="category-title">💪 Work out</div>
+          <div className="category-title">{title}</div>
           <div className="see-all">See all</div>
         </Category>
         <CardContainer>
           {challenges.map((challenge) => (
-            <ChallengeCard onClick={handleClickCard}>
-              <Image className="card-img" src={'/img/sample.png'} width={180} height={240} alt="" />
+            <ChallengeCard onClick={() => handleClickCard(challenge.id)}>
+              <Image
+                className="card-img"
+                src={challenge.imageUrl}
+                width={180}
+                height={240}
+                alt=""
+              />
               <div className="background">
                 <div className="challenge-title">
                   {challenge.title}
                   <br /> {challenge.subtitle}
                 </div>
                 <div className="challenge-fee">
-                  {challenge.fee}
+                  {challenge.stakingAPT}
                   <AptosLogo />
                   <div className="typo-unit">APT</div>
                 </div>
                 <div className="leader-profile">
                   <LeaderProfile>
                     <div className="circle">
-                      <Image src={'/img/sample.png'} width={14} height={14} alt="" />
+                      <Image
+                        src={challenge.creator.profileImageURL}
+                        width={14}
+                        height={14}
+                        alt=""
+                      />
                     </div>
-                    <div className="leader-nickname">@{challenge.leaderName}</div>
+                    <div className="leader-nickname">@{challenge.creator.handle}</div>
                   </LeaderProfile>
                 </div>
               </div>

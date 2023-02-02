@@ -1,15 +1,16 @@
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Router from 'next/router';
 
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import styled from 'styled-components';
+
 import BorderButton from '../components/BorderButton';
 import HeaderNavigation from '../components/HeaderNavigation';
 import HttpClient from '../network/httpClient';
+import Hand from '../public/svg/hand.svg';
 import UserRepositoryImpl from '../repository/user';
 import UserUseCase from '../usecase/user';
-import Hand from '../public/svg/hand.svg';
-import Router from 'next/router';
 
 const CONNECT_STEP = 0;
 const SIGN_UP_STEP = 1;
@@ -30,7 +31,7 @@ export default function LoginTemplate() {
   } = useWallet();
 
   const petraWallet = wallets[0];
-  const [loginStep, setLoginStep] = useState(2);
+  const [loginStep, setLoginStep] = useState(0);
   const [userName, setUserName] = useState('');
   const [profileDescription, setProfileDescription] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
@@ -182,7 +183,7 @@ export default function LoginTemplate() {
                 textSize={16}
                 buttonColor="#3733FF;"
               >
-                Let's Lifemining!
+                Mine Your Life!
               </BorderButton>
             </ButtonWrapper>
           </Container>
