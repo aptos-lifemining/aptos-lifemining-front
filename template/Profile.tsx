@@ -112,7 +112,7 @@ export default function ProfileTemplate() {
                     disabled={!record.claimable}
                     onClick={() => handleClaim(record.challenge.id)}
                   >
-                    Claim
+                    {record.claimed ? 'Claimed' : 'Claim'}
                   </BorderButton>
                 </div>
                 <ProgressContainer divideNum={3}>
