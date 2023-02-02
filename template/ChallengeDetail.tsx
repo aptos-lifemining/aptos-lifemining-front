@@ -172,7 +172,7 @@ export default function ChallengeDetailTemplate({ challenge }: { challenge: Chal
                 <div className="typo-followers">4.8K Followers</div>
               </div>
             </div>
-            <BorderButton width={76} height={31}>
+            <BorderButton width={76} height={31} buttonColor="#000000">
               Follow
             </BorderButton>
           </LeaderInfo>

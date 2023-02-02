@@ -109,7 +109,7 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
             width={180}
             height={33}
             borderRadius={24}
-            buttonColor="#3733ff"
+            buttonColor={!isJoined ? '#3733ff' : '#000000'}
             textColor="#ffffff"
             onClick={handleJoinButtonClicked}
           >

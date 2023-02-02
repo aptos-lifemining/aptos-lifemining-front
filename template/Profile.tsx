@@ -49,16 +49,16 @@ export default function ProfileTemplate() {
             </BorderButton>
             <div className="follower-box">
               <div className="content">
-                <div className="number">1,000</div>
-                <div className="unit">Followers</div>
+                <div className="number">128</div>
+                <div className="unit">Day Logs</div>
               </div>
               <div className="content">
-                <div className="number">1,000</div>
-                <div className="unit">Followers</div>
+                <div className="number">4</div>
+                <div className="unit">Created Challenges</div>
               </div>
               <div className="content">
-                <div className="number">1,000</div>
-                <div className="unit">Followers</div>
+                <div className="number">102</div>
+                <div className="unit">Joiners</div>
               </div>
             </div>
           </ProfileContainer>
