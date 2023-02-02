@@ -77,7 +77,7 @@ const NavigationBar = styled.div`
   height: 86px;
   width: 100%;
   background: #ffffff;
-  border-top: 0.1px solid #000000;
+  border-top: 0.1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   z-index: 100;
   max-width: 768px;

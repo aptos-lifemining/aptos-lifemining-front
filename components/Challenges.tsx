@@ -66,7 +66,7 @@ export default function Challenges({ challenges, title }: Props) {
 }
 
 const ChallengesContainer = styled.div`
-  border-bottom: 0.1px solid #000000;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
   padding: 0 0 16px;
 `;
 

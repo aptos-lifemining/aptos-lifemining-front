@@ -1,9 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 
 import styled from 'styled-components';
 
-import { User } from '../entity/user';
 import ProfileIcon from './ProfileIcon';
 
 export default function Stories({ users }) {
@@ -25,7 +23,7 @@ export default function Stories({ users }) {
 const StoriesContainer = styled.div`
   height: 99px;
   background: #ffffff;
-  border-bottom: 0.1px solid #333333;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
 
   .swiper-container::-webkit-scrollbar {
     display: none;

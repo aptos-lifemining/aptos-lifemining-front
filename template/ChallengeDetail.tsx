@@ -106,8 +106,6 @@ export default function ChallengeDetailTemplate({ challenge }) {
             className={isAnimated ? 'challenge-title-animated' : 'challenge-title'}
             ref={titleRef}
           >
-            {challenge.type}
-            <br />
             {challenge.title}
           </div>
         </ThumbnailContainer>
@@ -140,7 +138,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
       {tabIndex === DETAIL_INDEX ? (
         <div>
           <ChallengeInfo>
-            <div className="typo-title">{challenge.subtitle}</div>
+            <div className="typo-title">{challenge.subTitle}</div>
             <div className="typo-recruit-title">recruitment period</div>
             <div className="typo-recruit-sub">2023. 02. 01. ~ 2023. 02. 03</div>
           </ChallengeInfo>
@@ -319,7 +317,7 @@ const ChallengeImageWrapper = styled.div`
   img {
     position: absolute;
     top: 0;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 
@@ -327,7 +325,7 @@ const StakingInfo = styled.div`
   width: 100%;
   height: 88px;
   padding: 20px 24px;
-  border-bottom: 0.1px solid #000000;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
 
   .typo-description {
     font-family: InterTight;
@@ -344,7 +342,7 @@ const TabContainer = styled.div<{ curIndex: number }>`
   height: 46px;
   display: flex;
   align-items: flex-end;
-  border-bottom: 0.1px solid #000000;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
   padding: 0 24px;
 
   ${({ curIndex }) =>
@@ -358,7 +356,7 @@ const TabContainer = styled.div<{ curIndex: number }>`
         color: ${curIndex === DETAIL_INDEX ? '#000000' : '#A3A3A3'};
         height: 26px;
         margin-right: 43px;
-        border-bottom: ${curIndex === DETAIL_INDEX ? '2px solid #000000' : 'none'};
+        border-bottom: ${curIndex === DETAIL_INDEX ? '2px solid #333333' : 'none'};
       }
 
       .tab-log {
@@ -370,7 +368,7 @@ const TabContainer = styled.div<{ curIndex: number }>`
         color: ${curIndex === LOG_INDEX ? '#000000' : '#A3A3A3'};
         height: 26px;
         margin-right: 43px;
-        border-bottom: ${curIndex === LOG_INDEX ? '2px solid #000000' : 'none'};
+        border-bottom: ${curIndex === LOG_INDEX ? '2px solid #333333' : 'none'};
       }
     `}
 `;
@@ -415,7 +413,7 @@ const LeaderInfo = styled.div`
   padding: 13px 24px 12px;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.1px solid #000000;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
 
   .profile {
     display: flex;
