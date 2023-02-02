@@ -8,6 +8,7 @@ import BottomSheet from '../components/BottomSheet';
 import HttpClient from '../network/httpClient';
 import UserRepositoryImpl from '../repository/user';
 import UserUseCase from '../usecase/user';
+import BottomNavigation from '../components/BottomNavigation';
 
 export default function ProfileTemplate() {
   // useState user
@@ -34,7 +35,13 @@ export default function ProfileTemplate() {
 
   return (
     <Container roomImageUrl={user.roomImageUrl}>
-      <div className="background"></div>
+      <div className="background">
+        <ButtonContainer>
+          <BorderButton width={181} height={41} buttonColor="#000000">
+            Update My room
+          </BorderButton>
+        </ButtonContainer>
+      </div>
       <BottomSheet>
         <SheetContent>
           <div className="edit">Edit</div>
@@ -126,12 +133,21 @@ const Container = styled.div<{ roomImageUrl: string }>`
   width: 100%;
 
   .background {
-    height: calc(100% - 270px); // 100% - 270px
+    height: calc(100% - 250px); // 100% - 270px
     width: 100%;
     background-image: url(${({ roomImageUrl }) => roomImageUrl});
     background-size: cover;
     background-position: center;
   }
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 286px;
 `;
 
 const SheetContent = styled.div`
