@@ -24,18 +24,19 @@ export default function SelectPriceTemplate() {
       <HeaderNavigation position="relative" title="Set the Name" titleColor="#ffffff" />
       <ContentContainer>
         <div className="image-wrapper">
-          <Image src="/img/sample.png" width={75} height={138} alt="" />
+          <Image src="/img/cover3.png" width={75} height={138} alt="" />
         </div>
         <div className="challenge-info">
-          <div className="name">Challenge Name</div>
-          <div className="description">Challenge Description</div>
-          <div className="days">Days Left: 10</div>
+          <div className="name">Seoul Hackathon Winners</div>
+          <div className="description">Seoul Hackathon Winners</div>
+          <div className="days">3Days</div>
         </div>
       </ContentContainer>
       <InputContainer>
         <div className="price">
           <input
             type="number"
+            value={'2.00'}
             placeholder="Set the Price"
             onChange={(e) => {
               console.log(e.target.value);
@@ -49,9 +50,7 @@ export default function SelectPriceTemplate() {
         </div>
         <div className="typo-estimate">
           Estimated Receipt at Sale
-          <div style={{ fontSize: 16, marginTop: 10 }}>
-            {mintData.nftPrice ? Number(mintData.nftPrice) * 0.9 : '--'}
-          </div>
+          <div style={{ fontSize: 16, marginTop: 10 }}>{true ? '1.80' : '--'}</div>
         </div>
         {mintData.nftPrice && <div className="typo-noti">0.1% fee is incurred.</div>}
       </InputContainer>
@@ -59,11 +58,11 @@ export default function SelectPriceTemplate() {
         <BorderButton
           width={312}
           height={55}
-          buttonColor={mintData.nftPrice ? 'rgba(55, 51, 255, 1)' : 'rgba(55, 51, 255, .5)'}
-          textColor={mintData.nftPrice ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, .5)'}
+          buttonColor={'rgba(55, 51, 255, 1)'}
+          textColor={'rgba(255, 255, 255, 1)'}
           textSize={16}
           onClick={() => {
-            mintData.nftPrice && setStep((prev: any) => prev + 1);
+            setStep((prev: any) => prev + 1);
           }}
         >
           Mint the Life!

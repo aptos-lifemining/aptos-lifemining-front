@@ -118,7 +118,14 @@ export default function ProfileTemplate() {
             </div>
             <div className="name">@{user.handle}</div>
             <div className="description">{user.description}</div>
-            <BorderButton width={101} height={41} buttonColor="#3733FF">
+            <BorderButton
+              width={101}
+              height={41}
+              buttonColor="#3733FF"
+              onClick={() => {
+                Router.push('life_mint');
+              }}
+            >
               Mine Life.
             </BorderButton>
             <div className="follower-box">

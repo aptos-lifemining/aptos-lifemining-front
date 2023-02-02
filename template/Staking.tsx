@@ -43,7 +43,7 @@ export default function StakingTemplate() {
       type: 'entry_function_payload',
       function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
       type_arguments: [],
-      arguments: [hostAddress, challengeID],
+      arguments: [hostAddress, String(challengeID)],
     };
     try {
       const response = await signAndSubmitTransaction(payload);

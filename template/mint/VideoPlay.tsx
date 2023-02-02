@@ -121,40 +121,7 @@ export default function VideoPlayTemplate() {
         }}
       />
       <ContentContainer>
-        <div className="swiper-container">
-          <Swiper
-            modules={[Navigation, EffectCube, Autoplay]}
-            effect={'cube'}
-            grabCursor={true}
-            cubeEffect={{
-              shadow: true,
-              slideShadows: true,
-              shadowOffset: 20,
-              shadowScale: 0.94,
-            }}
-            slidesPerView={1}
-            onSlideChange={(swiper) => setCurrentVideo(swiper.activeIndex)}
-            navigation
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-          >
-            {videoList.map((video, index) => (
-              <SwiperSlide key={index}>
-                <Video url="/videos/sample2.mp4" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <SignitureContainer>
-          <LogoIcon />
-          <div className="challenge-name">
-            2023 Aptos Hackathon
-            <div style={{ fontWeight: 400 }}>@nmeaamsple</div>
-          </div>
-          <div className="days">3 Days</div>
-        </SignitureContainer>
+        <Video url="/videos/certi_nft.mp4" />
       </ContentContainer>
       <div className="gradient-background" />
       <ButtonWrapper>
@@ -193,7 +160,7 @@ const Container = styled.div`
 
 const ContentContainer = styled.div`
   width: 100%;
-  padding: 8px 0px 0;
+  padding: 26px 0px 0;
   position: relative;
 
   .content-flex-box {

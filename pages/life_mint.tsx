@@ -18,7 +18,7 @@ const COMPLETE_STEP = 4;
 export const StepContext = createContext(null);
 
 export default function LifeMint() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
 
   return (
     <StepContext.Provider value={{ step, setStep }}>
@@ -27,7 +27,8 @@ export default function LifeMint() {
         {step === SELECT_VIDEO_STEP && <SelectVideoTemplate />}
         {step === VIDEO_PLAY_STEP && <VideoPlayTemplate />}
         {step === SELECT_NAME_STEP && <SelectNameTemplate />}
-        {step === SELECT_PRICE_STEP && <MintCompleteTemplate />}
+        {step === SELECT_PRICE_STEP && <SelectPriceTemplate />}
+        {step === COMPLETE_STEP && <MintCompleteTemplate />}
       </LifeMintDataProvider>
     </StepContext.Provider>
   );

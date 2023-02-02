@@ -23,11 +23,21 @@ export default function LifeMintTemplate() {
         </div>
       </ContentContainer>
       <CardContainer>
-        <div className="card">
+        <div
+          className="card"
+          onClick={() => {
+            setMintStep((prev) => prev + 1);
+          }}
+        >
           <div className="challenge-name">2023 Aptos Hackathon</div>
           <ArrowRightIcon />
         </div>
-        <div className="card">
+        <div
+          className="card"
+          onClick={() => {
+            setMintStep((prev) => prev + 1);
+          }}
+        >
           <div className="challenge-name">2023 Aptos Hackathon</div>
           <ArrowRightIcon />
         </div>
@@ -72,7 +82,7 @@ const CardContainer = styled.div`
   padding: 20px 24px 0;
 
   .card {
-    width: 336px;
+    width: 100%;
     min-height: 64px;
     background: #262626;
     border-radius: 20px;

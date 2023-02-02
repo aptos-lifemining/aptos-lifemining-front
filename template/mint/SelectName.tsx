@@ -35,6 +35,7 @@ export default function SelectNameTemplate() {
         <div className="description">
           <input
             type="text"
+            value="june"
             placeholder="Profile Description"
             onChange={(e) => {
               console.log(e.target.value);
@@ -48,11 +49,11 @@ export default function SelectNameTemplate() {
         <BorderButton
           width={312}
           height={55}
-          buttonColor={mintData.nftName ? 'rgba(55, 51, 255, 1)' : 'rgba(55, 51, 255, .5)'}
-          textColor={mintData.nftName ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, .5)'}
+          buttonColor={'rgba(55, 51, 255, 1)'}
+          textColor={'rgba(255, 255, 255, 1)'}
           textSize={16}
           onClick={() => {
-            mintData.nftName && setStep((prev: any) => prev + 1);
+            setStep((prev: any) => prev + 1);
           }}
         >
           Next

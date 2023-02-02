@@ -17,68 +17,74 @@ export default function SelectVideoTemplate() {
   const [contentList, setContentList] = useState([
     {
       id: 1,
-      thumbnailURL: '/img/sample.png',
+      thumbnailURL: '/img/cover1.png',
       checked: false,
     },
     {
       id: 11,
-      thumbnailURL: '/img/sample.png',
+      thumbnailURL: '/img/cover2.png',
       checked: false,
     },
     {
       id: 13,
-      thumbnailURL: '/img/sample.png',
+      thumbnailURL: '/img/cover3.png',
       checked: false,
     },
     {
       id: 14,
-      thumbnailURL: '/img/sample.png',
+      thumbnailURL: '/img/cover4.png',
       checked: false,
     },
     {
       id: 15,
-      thumbnailURL: '/img/sample.png',
+      thumbnailURL: '/img/cover5.png',
       checked: false,
     },
 
     {
       id: 26,
-      thumbnailURL: '/img/sample.png',
+      thumbnailURL: '/img/cover6.png',
       checked: false,
     },
     {
       id: 36,
-      thumbnailURL: '/img/sample.png',
+      thumbnailURL: '/img/cover7.png',
       checked: false,
     },
     {
       id: 56,
-      thumbnailURL: '/img/sample.png',
+      thumbnailURL: '/img/cover8.png',
       checked: false,
     },
     {
-      id: 116,
-      thumbnailURL: '/img/sample.png',
+      id: 133,
+      thumbnailURL: '/img/cover1.png',
       checked: false,
     },
     {
-      id: 286,
-      thumbnailURL: '/img/sample.png',
+      id: 1411,
+      thumbnailURL: '/img/cover2.png',
       checked: false,
     },
     {
-      id: 356,
-      thumbnailURL: '/img/sample.png',
+      id: 1143,
+      thumbnailURL: '/img/cover3.png',
       checked: false,
     },
     {
-      id: 546,
-      thumbnailURL: '/img/sample.png',
+      id: 1554,
+      thumbnailURL: '/img/cover4.png',
       checked: false,
     },
     {
-      id: 1716,
-      thumbnailURL: '/img/sample.png',
+      id: 155,
+      thumbnailURL: '/img/cover5.png',
+      checked: false,
+    },
+
+    {
+      id: 26666,
+      thumbnailURL: '/img/cover6.png',
       checked: false,
     },
   ]);
