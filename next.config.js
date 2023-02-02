@@ -3,7 +3,7 @@ const nextConfig = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack'],
+      use: ['@svgr/webpack']
     });
     config.devServer = {
       disableHostCheck: true,
@@ -15,6 +15,9 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     transpilePackages: ['wallet-adapter-react'],
+  },
+  images: {
+    domains: ['dev-static-files.uzumeta.com'],
   },
 };
 

@@ -15,7 +15,7 @@ import { useWallet } from '@aptos-labs/wallet-adapter-react';
 const DETAIL_INDEX = 0;
 const LOG_INDEX = 1;
 
-export default function ChallengeDetailTemplate() {
+export default function ChallengeDetailTemplate({ challenge }) {
   const dummyParticipating = [
     {
       img: '/img/sample.png',
@@ -72,7 +72,7 @@ export default function ChallengeDetailTemplate() {
   console.log(connected);
 
   const [isAnimated, setIsAnimated] = useState(false);
-
+  console.log('challenge >>>>>>>>>>>>>>>>>>', challenge);
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -103,21 +103,21 @@ export default function ChallengeDetailTemplate() {
         <HeaderNavigation />
         <ThumbnailContainer isAnimated={isAnimated} ref={thumbnailRef}>
           <ChallengeImageWrapper>
-            <Image src="/img/sample.png" fill alt="" />
+            <Image src={challenge.imageUrl} fill alt="" />
           </ChallengeImageWrapper>
           <div className="background" />
           <div
             className={isAnimated ? 'challenge-title-animated' : 'challenge-title'}
             ref={titleRef}
           >
-            Work out!
-            <br />3 weeks challenge 🥋🥋
+            {challenge.title}
           </div>
         </ThumbnailContainer>
         <StakingInfo>
           <AptosUnit fee="2.50" color="#3733FF" fontSize={24} />
           <div className="typo-description">
-            <span style={{ fontWeight: 700 }}>2.80 APT</span> refund upon completion of staking{' '}
+            <span style={{ fontWeight: 700 }}>{challenge.stakingAPT} APT</span> refund upon
+            completion of staking{' '}
           </div>
         </StakingInfo>
         <TabContainer curIndex={tabIndex}>
@@ -142,23 +142,15 @@ export default function ChallengeDetailTemplate() {
       {tabIndex === DETAIL_INDEX ? (
         <div>
           <ChallengeInfo>
-            <div className="typo-title">
-              Fitness,
-              <br />
-              Well-ness,
-              <br />
-              for the better tomorrow!
-              <br />
-              3-weeks work out challenge
-            </div>
+            <div className="typo-title">{challenge.subTitle}</div>
             <div className="typo-recruit-title">recruitment period</div>
-            <div className="typo-recruit-sub">2023. 01. 24. ~ 2023. 01. 31</div>
+            <div className="typo-recruit-sub">2023. 02. 01. ~ 2023. 02. 03</div>
           </ChallengeInfo>
           <LeaderInfo>
             <div className="profile">
-              <ProfileIcon src={'/img/sample.png'} size={36} borderSize={1.5} />
+              <ProfileIcon src={challenge.creator.profileImageUrl} size={36} borderSize={1.5} />
               <div className="text-info">
-                <div className="leader-nickname">@ga_gline</div>
+                <div className="leader-nickname">@{challenge.creator.handle}</div>
                 <div className="typo-followers">4.8K Followers</div>
               </div>
             </div>
@@ -167,20 +159,13 @@ export default function ChallengeDetailTemplate() {
             </BorderButton>
           </LeaderInfo>
           <ContentContainer>
-            <div className="text-content">
-              in odio eu nec consectetur hendrerit sollicitudin. non urna. enim. lacus, amet, elit
-              ex nec malesuada efficitur. Sed fringilla lacus urna dignissim, faucibus sed vitae
-              lorem. ex vitae dignissim, elit sapien elit ex ipsum Donec maximus placerat. Cras elit
-              odio amet, elementum amet, porta tincidunt vehicula, Ut Nam ex dui ex. diam laoreet ex
-              orci massa nec volutpat facilisis Quisque sit lacus Nam tortor. nisi diam Cras quis
-              dui. Praesent dignissim, faucibus Lorem In non
-            </div>
+            <div className="text-content">{challenge.description}</div>
           </ContentContainer>
         </div>
       ) : (
         <div>
           <ParticipatingInfo>
-            <div className="participating-num">23</div>
+            <div className="participating-num">5</div>
             <div className="participating-unit">participating</div>
             <div className="period-title">Challenge period</div>
             <div className="period-content">2023. 02. 01. ~ 2023. 02. 21</div>
@@ -299,7 +284,7 @@ const ChallengeImageWrapper = styled.div`
   img {
     position: absolute;
     top: 0;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 
@@ -307,7 +292,7 @@ const StakingInfo = styled.div`
   width: 100%;
   height: 88px;
   padding: 20px 24px;
-  border-bottom: 0.1px solid #000000;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
 
   .typo-description {
     font-family: InterTight;
@@ -324,7 +309,7 @@ const TabContainer = styled.div<{ curIndex: number }>`
   height: 46px;
   display: flex;
   align-items: flex-end;
-  border-bottom: 0.1px solid #000000;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
   padding: 0 24px;
 
   ${({ curIndex }) =>
@@ -338,7 +323,7 @@ const TabContainer = styled.div<{ curIndex: number }>`
         color: ${curIndex === DETAIL_INDEX ? '#000000' : '#A3A3A3'};
         height: 26px;
         margin-right: 43px;
-        border-bottom: ${curIndex === DETAIL_INDEX ? '2px solid #000000' : 'none'};
+        border-bottom: ${curIndex === DETAIL_INDEX ? '2px solid #333333' : 'none'};
       }
 
       .tab-log {
@@ -350,7 +335,7 @@ const TabContainer = styled.div<{ curIndex: number }>`
         color: ${curIndex === LOG_INDEX ? '#000000' : '#A3A3A3'};
         height: 26px;
         margin-right: 43px;
-        border-bottom: ${curIndex === LOG_INDEX ? '2px solid #000000' : 'none'};
+        border-bottom: ${curIndex === LOG_INDEX ? '2px solid #333333' : 'none'};
       }
     `}
 `;
@@ -395,7 +380,7 @@ const LeaderInfo = styled.div`
   padding: 13px 24px 12px;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.1px solid #000000;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
 
   .profile {
     display: flex;

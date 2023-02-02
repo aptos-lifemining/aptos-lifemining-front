@@ -133,7 +133,7 @@ const BottomBar = styled.div`
   height: 94px;
   width: 100%;
   background: #ffffff;
-  border-top: 0.1px solid #000000;
+  border-top: 0.1px solid rgba(0, 0, 0, 0.1);
   z-index: 100;
   max-width: 768px;
 `;

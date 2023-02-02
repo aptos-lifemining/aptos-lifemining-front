@@ -7,7 +7,7 @@ export interface User {
   handle: string;
   nickname: string;
   isActive: boolean;
-  profileImageURL: string;
+  profileImageUrl: string;
   profileScope: string;
   profileDescription: string;
 }

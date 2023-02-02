@@ -1,41 +1,20 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import Image from 'next/image';
+
 import ProfileIcon from './ProfileIcon';
 
-export default function Stories() {
+export default function Stories({ users }) {
+  console.log('>>>>>>>>>>> users', users);
   return (
     <StoriesContainer>
       <div className="swiper-container">
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
+        {users.map((user) => (
+          <StoryBubble>
+            <ProfileIcon src={user.profileImageUrl} size={64} borderSize={1.5} />
+            <div className="user-nickname">@{user.handle}</div>
+          </StoryBubble>
+        ))}
       </div>
     </StoriesContainer>
   );
@@ -44,7 +23,7 @@ export default function Stories() {
 const StoriesContainer = styled.div`
   height: 99px;
   background: #ffffff;
-  border-bottom: 0.1px solid #333333;
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
 
   .swiper-container::-webkit-scrollbar {
     display: none;

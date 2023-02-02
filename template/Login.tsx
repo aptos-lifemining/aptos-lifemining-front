@@ -1,15 +1,16 @@
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Router from 'next/router';
 
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import styled from 'styled-components';
+
 import BorderButton from '../components/BorderButton';
 import HeaderNavigation from '../components/HeaderNavigation';
 import HttpClient from '../network/httpClient';
 import UserRepositoryImpl from '../repository/user';
 import UserUseCase from '../usecase/user';
 import Hand from '../public/svg/hand.svg';
-import Router from 'next/router';
 import BottomSheet from '../components/BottomSheet';
 import Logo from '../public/svg/lifemining_logo.svg';
 
@@ -18,18 +19,7 @@ const SIGN_UP_STEP = 1;
 const COMPLETE_STEP = 2;
 
 export default function LoginTemplate() {
-  const {
-    connect,
-    account,
-    network,
-    connected,
-    disconnect,
-    wallet,
-    wallets,
-    signAndSubmitTransaction,
-    signTransaction,
-    signMessage,
-  } = useWallet();
+  const { connect, wallets } = useWallet();
 
   const petraWallet = wallets[0];
   const [loginStep, setLoginStep] = useState(0);
@@ -37,7 +27,7 @@ export default function LoginTemplate() {
   const [profileDescription, setProfileDescription] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
   const [profileImageFile, setProfileImageFile] = useState(null);
-  const [profileImageURL, setProfileImageURL] = useState(null);
+  const [profileImageUrl, setprofileImageUrl] = useState(null);
 
   // useEffect(() => {
   //   if (connected) {
@@ -52,7 +42,7 @@ export default function LoginTemplate() {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      setProfileImageURL(reader.result as string);
+      setprofileImageUrl(reader.result as string);
       setProfileImageFile(file);
     };
 
@@ -110,8 +100,8 @@ export default function LoginTemplate() {
           <Container>
             <ProfileContainer>
               <div className="image-wrapper">
-                {profileImageURL ? (
-                  <Image src={profileImageURL} width={136} height={136} alt="" />
+                {profileImageUrl ? (
+                  <Image src={profileImageUrl} width={136} height={136} alt="" />
                 ) : (
                   <Image src="/img/gray.png" width={136} height={136} alt="" />
                 )}
@@ -173,7 +163,7 @@ export default function LoginTemplate() {
           <Container>
             <CompleteContainer>
               <div className="image-wrapper">
-                <Image src={profileImageURL || '/img/sample.png'} width={64} height={64} alt="" />
+                <Image src={profileImageUrl || '/img/sample.png'} width={64} height={64} alt="" />
               </div>
               <div className="welcome">
                 <div style={{ fontWeight: 500 }}>Welcome,</div>@{userName || 'wlejfliwejf'}
@@ -197,7 +187,7 @@ export default function LoginTemplate() {
                 textSize={16}
                 buttonColor="#3733FF;"
               >
-                Let's Lifemining!
+                Mine Your Life!
               </BorderButton>
             </ButtonWrapper>
           </Container>

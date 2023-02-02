@@ -169,8 +169,8 @@ const ProfileContainer = styled.div`
     height: 72px;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 0.1px solid #000000;
-    border-top: 0.1px solid #000000;
+    border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
+    border-top: 0.1px solid rgba(0, 0, 0, 0.1);
 
     .content {
       display: flex;

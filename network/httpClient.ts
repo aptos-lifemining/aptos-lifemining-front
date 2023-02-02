@@ -11,14 +11,14 @@ const HttpClient = axios.create({
 
 // interceptors
 HttpClient.interceptors.request.use(async (config) => {
-  // Retrieve the JWT from the AuthContext
-  // const token = 'dummy token';
-  // // const { token } = useContext(AuthContext);
-  // if (token) {
-  //   //@ts-ignore
-  //   config.headers.Authorization = `Bearer ${token}`;
-  // }
-  // config.headers['Content-type'] = 'multipart/form-data';
+  // Retrieve the address from the storage
+  try {
+    const address = sessionStorage.getItem('wallet_address');
+    if (address) {
+      //@ts-ignore
+      config.headers.address = address;
+    }
+  } catch (error) {} // TODO : server side props 에서 address가 필요할 경우, 이 부분을 수정해야함
   return config;
 });
 

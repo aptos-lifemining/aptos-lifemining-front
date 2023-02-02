@@ -1,7 +1,9 @@
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import React, { useEffect } from 'react';
-import BorderButton from '../components/BorderButton';
 
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import styled from 'styled-components';
+
+import BorderButton from '../components/BorderButton';
 import BottomNavigation from '../components/BottomNavigation';
 import BottomSheet from '../components/BottomSheet';
 import Challenges from '../components/Challenges';
@@ -9,23 +11,17 @@ import CreateChallenge from '../components/CreateChallenge';
 import DefaultLayout from '../components/DefaultLayout';
 import Header from '../components/Header';
 import Stories from '../components/Stories';
-import { challengeCategory } from '../database/home';
-import styled from 'styled-components';
+import { Challenge } from '../entity/challenge';
+import { User } from '../entity/user';
 import Logo from '../public/svg/lifemining_logo.svg';
 
-export default function HomeTemplate() {
-  const {
-    connect,
-    account,
-    network,
-    connected,
-    disconnect,
-    wallet,
-    wallets,
-    signAndSubmitTransaction,
-    signTransaction,
-    signMessage,
-  } = useWallet();
+interface Props {
+  challenges: Challenge[];
+  users: User[];
+}
+
+export default function HomeTemplate({ challenges, users }: Props) {
+  const { connect, account, connected, wallets } = useWallet();
   const petraWallet = wallets[0];
 
   const handleWalletConnect = async () => {
@@ -43,16 +39,16 @@ export default function HomeTemplate() {
       {connected ? (
         <>
           <Header />
-          <Stories />
+          <Stories users={users} />
           <Challenges
-            challenges={challengeCategory.find((obj) => obj.title === '💪 Work out').challenges}
+            challenges={challenges.filter((obj) => obj.type === 'develop')}
+            title="Develop 🧑‍💻"
           />
           <Challenges
-            challenges={challengeCategory.find((obj) => obj.title === '💪 Work out').challenges}
+            challenges={challenges.filter((obj) => obj.type === 'excercise')}
+            title="Excercise 🏃‍♀️"
           />
-          <Challenges
-            challenges={challengeCategory.find((obj) => obj.title === '💪 Work out').challenges}
-          />
+          <Challenges challenges={challenges.filter((obj) => obj.type === 'art')} title="Art 👩‍🎨" />
           <CreateChallenge />
           <BottomNavigation />
         </>
@@ -124,7 +120,7 @@ const RegistrationContainer = styled.div`
     align-items: center;
     justify-content: center;
 
-    font-family: 'Inter Tight';
+    font-family: InterTight;
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
