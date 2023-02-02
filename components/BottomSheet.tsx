@@ -32,17 +32,13 @@ const Wrapper = styled(motion.div)<{ bottomSheetHeight: number }>`
   flex-direction: column;
   position: fixed;
   z-index: 150;
-  /* top: 0; */
-  top: calc(100% - 330px);
-  /* bottom: 0; */
+  top: calc(100% - 270px);
   left: 0;
   right: 0;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background-color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
   height: ${({ bottomSheetHeight }) => bottomSheetHeight}px;
-  /* height: -719px; */
   transition: transform 150ms ease-out;
 `;
 
