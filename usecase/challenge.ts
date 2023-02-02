@@ -11,9 +11,13 @@ class ChallengeUseCase {
 
   public async getChallenge(id: number) {
     console.log('id >>>>>>>>>>>>>>>> ', id);
-    const data = await this.ChallengeRepository.getChallenge(id);
-
-    return data;
+    try {
+      const data = await this.ChallengeRepository.getChallenge(id);
+      return data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 
   public async getTotalRecordForId(id: number) {
@@ -41,9 +45,14 @@ class ChallengeUseCase {
   }
 
   public async claim(id: number) {
-    const data = await this.ChallengeRepository.claim(id);
+    try {
+      const data = await this.ChallengeRepository.claim(id);
 
-    return data;
+      return data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 }
 

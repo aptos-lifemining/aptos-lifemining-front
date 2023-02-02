@@ -63,7 +63,7 @@ export default function UploadVideo() {
           type: 'entry_function_payload',
           function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::submit_daily_checkpoint`,
           type_arguments: [],
-          arguments: [hostAddress, challengeID, 2],
+          arguments: [hostAddress, String(challengeID), 2],
         };
         const response = await signAndSubmitTransaction(payload);
         console.log(response);

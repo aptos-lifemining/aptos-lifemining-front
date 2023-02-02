@@ -12,8 +12,24 @@ import ChallengeRepositoryImpl from '../repository/challenge';
 import UserRepositoryImpl from '../repository/user';
 import ChallengeUseCase from '../usecase/challenge';
 import UserUseCase from '../usecase/user';
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { Types } from 'aptos';
+import { aptosClient } from '../network/aptos';
 
 export default function ProfileTemplate() {
+  const {
+    connect,
+    account,
+    network,
+    connected,
+    disconnect,
+    wallet,
+    wallets,
+    signAndSubmitTransaction,
+    signTransaction,
+    signMessage,
+  } = useWallet();
+
   // useState user
   const [user, setUser] = React.useState({
     id: 1,
@@ -47,10 +63,40 @@ export default function ProfileTemplate() {
     getRecords();
   }, []);
 
-  async function handleClaim(id: number) {
-    const response = await new ChallengeUseCase(new ChallengeRepositoryImpl(HttpClient)).claim(id);
-    console.log('response >>>>>>> ', response);
-  }
+  const handleClaim = async (id: number) => {
+    try {
+      const hostInfoResponse = await new ChallengeUseCase(
+        new ChallengeRepositoryImpl(HttpClient),
+      ).getChallenge(id);
+
+      const serverResponse = await new ChallengeUseCase(
+        new ChallengeRepositoryImpl(HttpClient),
+      ).claim(id);
+      console.log('response >>>>>>> ', serverResponse);
+      console.log('hostAddress >>>>>>> ', hostInfoResponse);
+      console.log('id >>>>>>> ', id);
+
+      if (serverResponse && hostInfoResponse) {
+        // aptos join
+        const payload: Types.TransactionPayload = {
+          type: 'entry_function_payload',
+          function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::claim_for_challenge_reward`,
+          type_arguments: [],
+          arguments: [hostInfoResponse.creator.address, String(id)],
+        };
+        const response = await signAndSubmitTransaction(payload);
+        console.log(response);
+        // if you want to wait for transaction
+        await aptosClient.waitForTransaction(response?.hash || '');
+        if (response?.hash) {
+          getUser();
+          getRecords();
+        }
+      }
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
 
   return (
     <Container roomImageUrl={user.roomImageUrl}>

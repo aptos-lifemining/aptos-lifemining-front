@@ -15,10 +15,8 @@ const aptosClient = new AptosClient(process.env.NEXT_PUBLIC_APTOS_NODE_ADDRESS);
 
 export default function BottomJoinCTA({ challenge, totalRecord }: any) {
   const router = useRouter();
-  // const challengeID = router.query.id;
-  const challengeID = '0x00123';
-  // const hostAddress = router.query['host_address'];
-  const hostAddress = '470ea80201980ec4f5fa86239a14e4ce36c73f502908edd81292e57da4a77359';
+  const challengeID = router.query.id;
+  const hostAddress = challenge.creator.address;
 
   // isJoined useState
   const [isJoined, setIsJoined] = useState(false);
@@ -55,13 +53,16 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
           type: 'entry_function_payload',
           function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
           type_arguments: [],
-          arguments: [hostAddress, challengeID],
+          arguments: [hostAddress, String(challengeID)],
         };
         const response = await signAndSubmitTransaction(payload);
         console.log(response);
         // if you want to wait for transaction
         await aptosClient.waitForTransaction(response?.hash || '');
-        console.log(response?.hash);
+        response?.hash &&
+          Router.push(
+            `/join_complete?name=${challenge.title}&fee=${challenge.stakingAPT}&handler=${challenge.creator.handle}`,
+          );
       }
     } catch (error: any) {
       console.log('error', error);

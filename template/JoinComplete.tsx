@@ -27,9 +27,9 @@ export default function JoinCompleteTemplate() {
         <ChallengeCard>
           <Image className="card-img" src={'/img/sample.png'} width={180} height={240} alt="" />
           <div className="background">
-            <div className="challenge-title">title subtitle</div>
+            <div className="challenge-title">{name}</div>
             <div className="challenge-fee">
-              2.000
+              {fee}
               <AptosLogo />
               <div className="typo-unit">APT</div>
             </div>
@@ -38,7 +38,7 @@ export default function JoinCompleteTemplate() {
                 <div className="circle">
                   <Image src={'/img/sample.png'} width={14} height={14} alt="" />
                 </div>
-                <div className="leader-nickname">@absddf</div>
+                <div className="leader-nickname">@{handler}</div>
               </LeaderProfile>
             </div>
           </div>
@@ -60,7 +60,7 @@ export default function JoinCompleteTemplate() {
           textColor="#ffffff"
           textSize={16}
           onClick={() => {
-            Router.replace('/nft_shop');
+            Router.replace('/profile');
           }}
         >
           <GiftIcon />
