@@ -21,6 +21,13 @@ class ChallengeUseCase {
 
     return data;
   }
+
+  public async joinChallenge(id: number) {
+    console.log('usecase joinChallenge id >>>>>>>>>>>>>>>> ', id);
+    const data = await this.ChallengeRepository.joinChallenge(id);
+
+    return data;
+  }
 }
 
 export default ChallengeUseCase;

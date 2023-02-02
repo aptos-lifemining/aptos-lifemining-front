@@ -9,6 +9,8 @@ export interface ChallengeRepository {
   getChallenge(id: number): any;
 
   getTotalRecordForId(id: number): any;
+
+  joinChallenge(id: number): any;
 }
 
 class ChallengeRepositoryImpl implements ChallengeRepository {
@@ -30,6 +32,12 @@ class ChallengeRepositoryImpl implements ChallengeRepository {
     console.log(`/challenges/${id}/totalRecord 로 요청 >>>>>>>>`);
     const { data } = await this.client.get(`/challenges/${id}/totalRecord`);
     console.log('getTotalRecordForId', data);
+    return data;
+  }
+
+  public async joinChallenge(id: number) {
+    const { data } = await this.client.post(`/challenges/join/${id}`);
+    console.log('joinChallenge', data);
     return data;
   }
 }

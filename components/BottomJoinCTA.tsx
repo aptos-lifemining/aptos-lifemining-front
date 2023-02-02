@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Router, { useRouter } from 'next/router';
 
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { AptosClient, Types } from 'aptos';
 import styled from 'styled-components';
 
+import HttpClient from '../network/httpClient';
 import Aptos from '../public/svg/aptos.svg';
+import ChallengeRepositoryImpl from '../repository/challenge';
+import ChallengeUseCase from '../usecase/challenge';
 import BorderButton from './BorderButton';
 
 const aptosClient = new AptosClient(process.env.NEXT_PUBLIC_APTOS_NODE_ADDRESS);
@@ -17,10 +20,14 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
   // const hostAddress = router.query['host_address'];
   const hostAddress = '470ea80201980ec4f5fa86239a14e4ce36c73f502908edd81292e57da4a77359';
 
-  const isJoined = totalRecord ? true : false;
-  // 몇 일차 인증할 차례인지
-  // 만약 Join도 안 했다면 0
-  const dayNumber = totalRecord ? totalRecord.participationDays + 1 : 0;
+  // isJoined useState
+  const [isJoined, setIsJoined] = useState(false);
+  const [dayNumber, setDayNumber] = useState(0);
+
+  useEffect(() => {
+    setIsJoined(totalRecord ? true : false);
+    setDayNumber(totalRecord ? totalRecord.participationDays + 1 : 0);
+  }, [totalRecord]);
 
   const {
     connect,
@@ -54,25 +61,37 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
   };
 
   const handleJoinButtonClicked = async () => {
-    const payload: Types.TransactionPayload = {
-      type: 'entry_function_payload',
-      function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
-      type_arguments: [],
-      arguments: [hostAddress, challengeID],
-    };
-    try {
-      const response = await signAndSubmitTransaction(payload);
-      console.log(response);
-      // if you want to wait for transaction
-      await aptosClient.waitForTransaction(response?.hash || '');
+    console.log('isJoined', isJoined);
+    console.log('dayNumber', dayNumber);
+    if (!isJoined) {
+      // challenge join
+      const res = await new ChallengeUseCase(new ChallengeRepositoryImpl(HttpClient)).joinChallenge(
+        challenge.id,
+      );
+      console.log('>>>>>>>> join challenge', res);
 
-      if (response?.hash) {
-        router.push(
-          `/join_complete?name=${challenge.title}?fee=${challenge.stakingAPT}?handler=${challenge.creator.handle}`,
-        );
+      const payload: Types.TransactionPayload = {
+        type: 'entry_function_payload',
+        function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
+        type_arguments: [],
+        arguments: [hostAddress, challengeID],
+      };
+      try {
+        const response = await signAndSubmitTransaction(payload);
+        console.log(response);
+        // if you want to wait for transaction
+        await aptosClient.waitForTransaction(response?.hash || '');
+
+        if (response?.hash) {
+          router.push(
+            `/join_complete?name=${challenge.title}?fee=${challenge.stakingAPT}?handler=${challenge.creator.handle}`,
+          );
+        }
+      } catch (error: any) {
+        console.log('error', error);
       }
-    } catch (error: any) {
-      console.log('error', error);
+    } else {
+      // TODO : @지우 채우세요잉 -> n일차 인증하기로 가는 로직
     }
   };
 
@@ -82,7 +101,7 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
       <BottomBar>
         <ContentBox>
           <div className="join-fee">
-            2.50
+            {challenge.stakingAPT}
             <AptosLogo />
             <div className="typo-unit">APT</div>
           </div>
@@ -94,7 +113,7 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
             textColor="#ffffff"
             onClick={handleJoinButtonClicked}
           >
-            {isJoined ? 'Join now!' : `Record Day ${dayNumber}`}
+            {!isJoined ? 'Join now!' : `Record Day ${dayNumber}`}
           </BorderButton>
         </ContentBox>
       </BottomBar>
