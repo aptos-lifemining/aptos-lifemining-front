@@ -1,7 +1,8 @@
-import Image from 'next/image';
 import React from 'react';
+import Image from 'next/image';
 
 import styled, { css } from 'styled-components';
+
 import BorderButton from '../components/BorderButton';
 import BottomSheet from '../components/BottomSheet';
 

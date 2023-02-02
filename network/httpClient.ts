@@ -14,6 +14,8 @@ HttpClient.interceptors.request.use(async (config) => {
   // Retrieve the address from the storage
   try {
     const address = sessionStorage.getItem('wallet_address');
+    console.log(address);
+    // const address = '0xb8542ced3b91535ec569a537a7eff91bec498f25bca349473b6e2856529787ba';
     if (address) {
       //@ts-ignore
       config.headers.address = address;

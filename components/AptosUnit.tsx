@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import Aptos from '../public/svg/aptos.svg';
 
 interface Props {
-  fee: string;
+  fee: number;
   color?: string;
   fontSize?: number;
 }
