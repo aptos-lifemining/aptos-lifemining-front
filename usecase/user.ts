@@ -33,6 +33,11 @@ class UserUseCase {
       return null;
     }
   }
+
+  public async getUsers() {
+    const data = await this.UserRepository.getUsers();
+    return data;
+  }
 }
 
 export default UserUseCase;

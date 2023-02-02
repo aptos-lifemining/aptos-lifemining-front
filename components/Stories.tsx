@@ -1,41 +1,22 @@
 import React from 'react';
+import Image from 'next/image';
 
 import styled from 'styled-components';
-import Image from 'next/image';
+
+import { User } from '../entity/user';
 import ProfileIcon from './ProfileIcon';
 
-export default function Stories() {
+export default function Stories({ users }) {
+  console.log('>>>>>>>>>>> users', users);
   return (
     <StoriesContainer>
       <div className="swiper-container">
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
-        <StoryBubble>
-          <ProfileIcon src={'/img/sample.png'} size={64} borderSize={1.5} />
-          <div className="user-nickname">#putdownfkjasldfddf</div>
-        </StoryBubble>
+        {users.map((user) => (
+          <StoryBubble>
+            <ProfileIcon src={user.profileImageUrl} size={64} borderSize={1.5} />
+            <div className="user-nickname">@{user.handle}</div>
+          </StoryBubble>
+        ))}
       </div>
     </StoriesContainer>
   );

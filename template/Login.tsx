@@ -36,7 +36,7 @@ export default function LoginTemplate() {
   const [profileDescription, setProfileDescription] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
   const [profileImageFile, setProfileImageFile] = useState(null);
-  const [profileImageURL, setProfileImageURL] = useState(null);
+  const [profileImageUrl, setprofileImageUrl] = useState(null);
 
   useEffect(() => {
     if (connected) {
@@ -51,7 +51,7 @@ export default function LoginTemplate() {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      setProfileImageURL(reader.result as string);
+      setprofileImageUrl(reader.result as string);
       setProfileImageFile(file);
     };
 
@@ -96,8 +96,8 @@ export default function LoginTemplate() {
           <Container>
             <ProfileContainer>
               <div className="image-wrapper">
-                {profileImageURL ? (
-                  <Image src={profileImageURL} width={136} height={136} alt="" />
+                {profileImageUrl ? (
+                  <Image src={profileImageUrl} width={136} height={136} alt="" />
                 ) : (
                   <Image src="/img/gray.png" width={136} height={136} alt="" />
                 )}
@@ -159,7 +159,7 @@ export default function LoginTemplate() {
           <Container>
             <CompleteContainer>
               <div className="image-wrapper">
-                <Image src={profileImageURL || '/img/sample.png'} width={64} height={64} alt="" />
+                <Image src={profileImageUrl || '/img/sample.png'} width={64} height={64} alt="" />
               </div>
               <div className="welcome">
                 <div style={{ fontWeight: 500 }}>Welcome,</div>@{userName || 'wlejfliwejf'}

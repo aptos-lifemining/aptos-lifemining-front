@@ -7,11 +7,11 @@ import DefaultLayout from '../components/DefaultLayout';
 import Header from '../components/Header';
 import Stories from '../components/Stories';
 
-export default function HomeTemplate({ challenges }) {
+export default function HomeTemplate({ challenges, users }) {
   return (
     <DefaultLayout>
       <Header />
-      <Stories />
+      <Stories users={users} />
       <Challenges
         challenges={challenges.filter((obj) => obj.type === 'develop')}
         title="Develop 🧑‍💻"

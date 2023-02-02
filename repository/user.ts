@@ -1,9 +1,11 @@
 import { AxiosInstance } from 'axios';
+
 import { User } from '../entity/user';
 
 export interface UserRepository {
   getUser(): any;
   registerUser(formData: any): any;
+  getUsers(): any;
 }
 
 class UserRepositoryImpl implements UserRepository {
@@ -21,6 +23,12 @@ class UserRepositoryImpl implements UserRepository {
         'Content-Type': 'multipart/form-data',
       },
     });
+
+    return data;
+  }
+
+  public async getUsers(): Promise<User> {
+    const { data } = await this.client.get(`/users`);
 
     return data;
   }
