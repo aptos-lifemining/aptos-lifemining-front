@@ -41,89 +41,90 @@ export default function ProfileTemplate() {
             Update My room
           </BorderButton>
         </ButtonContainer>
+        <BottomSheet>
+          <SheetContent>
+            <div className="edit">Edit</div>
+            <ProfileContainer>
+              <div className="image-wrapper">
+                <Image src={user.profileImageUrl} width={64} height={64} alt="" />
+              </div>
+              <div className="name">@{user.handle}</div>
+              <div className="description">{user.description}</div>
+              <BorderButton width={101} height={41} buttonColor="#3733FF;">
+                Mine Life.
+              </BorderButton>
+              <div className="follower-box">
+                <div className="content">
+                  <div className="number">128</div>
+                  <div className="unit">Day Logs</div>
+                </div>
+                <div className="content">
+                  <div className="number">4</div>
+                  <div className="unit">Created Challenges</div>
+                </div>
+                <div className="content">
+                  <div className="number">102</div>
+                  <div className="unit">Joiners</div>
+                </div>
+              </div>
+            </ProfileContainer>
+            <ChallengesConatiner>
+              <ChallengeCard>
+                <div className="head-flex-box">
+                  <div className="challenge-name">
+                    <div className="challenge-title">2023 Aptos Hackathon</div>
+                    <div className="detail">View detail</div>
+                  </div>
+                  <BorderButton width={72} height={31} buttonColor="#000000">
+                    Claim
+                  </BorderButton>
+                </div>
+                <ProgressContainer divideNum={3}>
+                  <div className="progress-bar-filled" />
+                  <div className="progress-bar-filled" />
+                  <div className="progress-bar" />
+                </ProgressContainer>
+                <div className="typo-days">3 Days</div>
+              </ChallengeCard>
+              <ChallengeCard>
+                <div className="head-flex-box">
+                  <div className="challenge-name">
+                    <div className="challenge-title">2023 Aptos Hackathon</div>
+                    <div className="detail">View detail</div>
+                  </div>
+                  <BorderButton width={72} height={31}>
+                    Claim
+                  </BorderButton>
+                </div>
+                <ProgressContainer divideNum={3}>
+                  <div className="progress-bar-filled" />
+                  <div className="progress-bar-filled" />
+                  <div className="progress-bar" />
+                </ProgressContainer>
+                <div className="typo-days">3 Days</div>
+              </ChallengeCard>
+              <ChallengeCard>
+                <div className="head-flex-box">
+                  <div className="challenge-name">
+                    <div className="challenge-title">2023 Aptos Hackathon</div>
+                    <div className="detail">View detail</div>
+                  </div>
+                  <BorderButton width={72} height={31}>
+                    Claim
+                  </BorderButton>
+                </div>
+                <ProgressContainer divideNum={3}>
+                  <div className="progress-bar-filled" />
+                  <div className="progress-bar-filled" />
+                  <div className="progress-bar" />
+                </ProgressContainer>
+                <div className="typo-days">3 Days</div>
+              </ChallengeCard>
+            </ChallengesConatiner>
+          </SheetContent>
+        </BottomSheet>
       </div>
-      <BottomSheet>
-        <SheetContent>
-          <div className="edit">Edit</div>
-          <ProfileContainer>
-            <div className="image-wrapper">
-              <Image src={user.profileImageUrl} width={64} height={64} alt="" />
-            </div>
-            <div className="name">@{user.handle}</div>
-            <div className="description">{user.description}</div>
-            <BorderButton width={101} height={41} buttonColor="#3733FF;">
-              Mine Life.
-            </BorderButton>
-            <div className="follower-box">
-              <div className="content">
-                <div className="number">128</div>
-                <div className="unit">Day Logs</div>
-              </div>
-              <div className="content">
-                <div className="number">4</div>
-                <div className="unit">Created Challenges</div>
-              </div>
-              <div className="content">
-                <div className="number">102</div>
-                <div className="unit">Joiners</div>
-              </div>
-            </div>
-          </ProfileContainer>
-          <ChallengesConatiner>
-            <ChallengeCard>
-              <div className="head-flex-box">
-                <div className="challenge-name">
-                  <div className="challenge-title">2023 Aptos Hackathon</div>
-                  <div className="detail">View detail</div>
-                </div>
-                <BorderButton width={72} height={31}>
-                  Claim
-                </BorderButton>
-              </div>
-              <ProgressContainer divideNum={3}>
-                <div className="progress-bar-filled" />
-                <div className="progress-bar-filled" />
-                <div className="progress-bar" />
-              </ProgressContainer>
-              <div className="typo-days">3 Days</div>
-            </ChallengeCard>
-            <ChallengeCard>
-              <div className="head-flex-box">
-                <div className="challenge-name">
-                  <div className="challenge-title">2023 Aptos Hackathon</div>
-                  <div className="detail">View detail</div>
-                </div>
-                <BorderButton width={72} height={31}>
-                  Claim
-                </BorderButton>
-              </div>
-              <ProgressContainer divideNum={3}>
-                <div className="progress-bar-filled" />
-                <div className="progress-bar-filled" />
-                <div className="progress-bar" />
-              </ProgressContainer>
-              <div className="typo-days">3 Days</div>
-            </ChallengeCard>
-            <ChallengeCard>
-              <div className="head-flex-box">
-                <div className="challenge-name">
-                  <div className="challenge-title">2023 Aptos Hackathon</div>
-                  <div className="detail">View detail</div>
-                </div>
-                <BorderButton width={72} height={31}>
-                  Claim
-                </BorderButton>
-              </div>
-              <ProgressContainer divideNum={3}>
-                <div className="progress-bar-filled" />
-                <div className="progress-bar-filled" />
-                <div className="progress-bar" />
-              </ProgressContainer>
-              <div className="typo-days">3 Days</div>
-            </ChallengeCard>
-          </ChallengesConatiner>
-        </SheetContent>
-      </BottomSheet>
+      {/* <BottomNavigation /> */}
     </Container>
   );
 }

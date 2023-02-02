@@ -12,7 +12,7 @@ interface Props {
   margin?: string;
   children?: React.ReactNode;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: any;
 }
 
 export default function BorderButton({
