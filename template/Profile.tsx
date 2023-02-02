@@ -4,13 +4,13 @@ import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
 import BorderButton from '../components/BorderButton';
+import BottomNavigation from '../components/BottomNavigation';
 import BottomSheet from '../components/BottomSheet';
 import HttpClient from '../network/httpClient';
 import ChallengeRepositoryImpl from '../repository/challenge';
 import UserRepositoryImpl from '../repository/user';
 import ChallengeUseCase from '../usecase/challenge';
 import UserUseCase from '../usecase/user';
-import BottomNavigation from '../components/BottomNavigation';
 
 export default function ProfileTemplate() {
   // useState user
@@ -49,11 +49,13 @@ export default function ProfileTemplate() {
   return (
     <Container roomImageUrl={user.roomImageUrl}>
       <div className="background">
-        <ButtonContainer>
-          <BorderButton width={181} height={41} buttonColor="#000000">
-            Update My room
-          </BorderButton>
-        </ButtonContainer>
+        {totalRecords?.filter((record) => record.claimable).length > 0 && (
+          <ButtonContainer>
+            <BorderButton width={181} height={41} buttonColor="#000000">
+              Update My room
+            </BorderButton>
+          </ButtonContainer>
+        )}
       </div>
       <BottomSheet>
         <SheetContent>
@@ -90,7 +92,12 @@ export default function ProfileTemplate() {
                     <div className="challenge-title">{record.challenge.title}</div>
                     <div className="detail">View detail</div>
                   </div>
-                  <BorderButton width={72} height={31} buttonColor="#000000">
+                  <BorderButton
+                    width={72}
+                    height={31}
+                    buttonColor="#000000"
+                    disabled={!record.claimbable}
+                  >
                     Claim
                   </BorderButton>
                 </div>
@@ -102,7 +109,7 @@ export default function ProfileTemplate() {
                     { length: record.challenge.totalDays - record.participationDays },
                     () => 0,
                   ).map(() => (
-                    <div className="progress-bar-filled" />
+                    <div className="progress-bar" />
                   ))}
                 </ProgressContainer>
                 <div className="typo-days">
