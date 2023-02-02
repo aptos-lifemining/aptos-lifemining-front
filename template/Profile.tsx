@@ -47,6 +47,11 @@ export default function ProfileTemplate() {
     getRecords();
   }, []);
 
+  async function handleClaim(id: number) {
+    const response = await new ChallengeUseCase(new ChallengeRepositoryImpl(HttpClient)).claim(id);
+    console.log('response >>>>>>> ', response);
+  }
+
   return (
     <Container roomImageUrl={user.roomImageUrl}>
       <div className="background">
@@ -104,7 +109,8 @@ export default function ProfileTemplate() {
                     width={72}
                     height={31}
                     buttonColor="#000000"
-                    disabled={!record.claimbable}
+                    disabled={!record.claimable}
+                    onClick={() => handleClaim(record.challenge.id)}
                   >
                     Claim
                   </BorderButton>
