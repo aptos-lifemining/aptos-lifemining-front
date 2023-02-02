@@ -25,7 +25,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
       handle: 'june',
       profileImageUrl:
         'https://dev-static-files.uzumeta.com/lifemining/profile-images/사무실_앞모습_정방형.jpg',
-      roomImageURL: '',
+      roomImageUrl: '',
       address: '0xb8542ced3b91535ec569a537a7eff91bec498f25bca349473b6e2856529787bas',
       description: 'Hello, world! I am june.',
     },
@@ -34,7 +34,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
       handle: 'jiwoo',
       profileImageUrl:
         'https://dev-static-files.uzumeta.com/lifemining/profile-images/aptomingo.png',
-      roomImageURL: '',
+      roomImageUrl: '',
       address: '0x5ba5657da3173dbf93b86c4416963f6654c9667573bb9c466ba495ad7576c791',
       description: 'I am a frontend developer jiwoo.',
     },
@@ -43,7 +43,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
       handle: 'immortal',
       profileImageUrl:
         'https://dev-static-files.uzumeta.com/lifemining/profile-images/saudi-ape.jpeg',
-      roomImageURL: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
+      roomImageUrl: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
       address: null,
       description: null,
     },
@@ -52,7 +52,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
       handle: '789789',
       profileImageUrl:
         'https://dev-static-files.uzumeta.com/lifemining/profile-images/aptos-monkey.jpeg',
-      roomImageURL: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
+      roomImageUrl: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
       address: null,
       description: null,
     },
@@ -60,7 +60,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
       id: 1,
       handle: 'lifter',
       profileImageUrl: 'https://dev-static-files.uzumeta.com/lifemining/profile-images/12.jpg',
-      roomImageURL: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
+      roomImageUrl: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
       address: null,
       description: null,
     },

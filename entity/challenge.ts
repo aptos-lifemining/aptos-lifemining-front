@@ -13,7 +13,7 @@ export interface Challenge {
     id: string;
     handle: string;
     profileImageUrl: string;
-    roomImageURL: string;
+    roomImageUrl: string;
     address: string;
     description: string;
   };

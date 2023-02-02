@@ -12,7 +12,7 @@ class UserRepositoryImpl implements UserRepository {
   constructor(private readonly client: AxiosInstance) {}
 
   public async getUser(): Promise<User> {
-    const { data } = await this.client.get(`/users`);
+    const { data } = await this.client.get(`/users/me`);
 
     return data;
   }

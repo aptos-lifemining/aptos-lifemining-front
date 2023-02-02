@@ -1,26 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 
 import styled, { css } from 'styled-components';
 
 import BorderButton from '../components/BorderButton';
 import BottomSheet from '../components/BottomSheet';
+import HttpClient from '../network/httpClient';
+import UserRepositoryImpl from '../repository/user';
+import UserUseCase from '../usecase/user';
 
 export default function ProfileTemplate() {
+  // useState user
+  const [user, setUser] = React.useState({
+    id: 1,
+    handle: 'june',
+    profileImageUrl:
+      'https://dev-static-files.uzumeta.com/lifemining/profile-images/사무실_앞모습_정방형.jpg',
+    roomImageUrl: '',
+    address: '0xb8542ced3b91535ec569a537a7eff91bec498f25bca349473b6e2856529787bas',
+    description: 'Hello, world! I am june.',
+  });
+
+  async function getUser() {
+    const userResponse = await new UserUseCase(new UserRepositoryImpl(HttpClient)).getUser();
+    console.log('userResponse >>>>>>> ', userResponse);
+    setUser(userResponse);
+  }
+
+  // useEffect
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
-    <Container>
+    <Container roomImageUrl={user.roomImageUrl}>
       <div className="background"></div>
       <BottomSheet>
         <SheetContent>
           <div className="edit">Edit</div>
           <ProfileContainer>
             <div className="image-wrapper">
-              <Image src={'/img/sample.png'} width={64} height={64} alt="" />
+              <Image src={user.profileImageUrl} width={64} height={64} alt="" />
             </div>
-            <div className="name">@wlejfliwejf</div>
-            <div className="description">I'm a developer</div>
+            <div className="name">@{user.handle}</div>
+            <div className="description">{user.description}</div>
             <BorderButton width={101} height={41} buttonColor="#3733FF;">
-              Life NFT
+              Mine Life.
             </BorderButton>
             <div className="follower-box">
               <div className="content">
@@ -96,14 +121,14 @@ export default function ProfileTemplate() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ roomImageUrl: string }>`
   height: 100vh;
   width: 100%;
 
   .background {
-    height: 100%;
+    height: calc(100% - 270px); // 100% - 270px
     width: 100%;
-    background-image: url('/img/sample2.png');
+    background-image: url(${({ roomImageUrl }) => roomImageUrl});
     background-size: cover;
     background-position: center;
   }
