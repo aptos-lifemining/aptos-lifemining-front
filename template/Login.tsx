@@ -10,6 +10,8 @@ import UserRepositoryImpl from '../repository/user';
 import UserUseCase from '../usecase/user';
 import Hand from '../public/svg/hand.svg';
 import Router from 'next/router';
+import BottomSheet from '../components/BottomSheet';
+import Logo from '../public/svg/lifemining_logo.svg';
 
 const CONNECT_STEP = 0;
 const SIGN_UP_STEP = 1;
@@ -30,20 +32,20 @@ export default function LoginTemplate() {
   } = useWallet();
 
   const petraWallet = wallets[0];
-  const [loginStep, setLoginStep] = useState(2);
+  const [loginStep, setLoginStep] = useState(0);
   const [userName, setUserName] = useState('');
   const [profileDescription, setProfileDescription] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [profileImageURL, setProfileImageURL] = useState(null);
 
-  useEffect(() => {
-    if (connected) {
-      console.log('connected');
-      setLoginStep(SIGN_UP_STEP);
-      setWalletAddress(account.address);
-    }
-  }, [connected]);
+  // useEffect(() => {
+  //   if (connected) {
+  //     console.log('connected');
+  //     setLoginStep(SIGN_UP_STEP);
+  //     setWalletAddress(account.address);
+  //   }
+  // }, [connected]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
@@ -68,24 +70,37 @@ export default function LoginTemplate() {
     res ? setLoginStep((prev) => prev + 1) : alert('failed');
   };
 
+  const handleWalletConnect = async () => {
+    connect(petraWallet.name);
+  };
+
   return (
     <React.Fragment>
       {loginStep === CONNECT_STEP && (
         <>
-          <HeaderNavigation position="relative" stroked title="Connect Petra Wallet" />
           <Container>
-            <ButtonWrapper>
-              <BorderButton
-                onClick={() => {
-                  connect(petraWallet.name);
-                }}
-                width={308}
-                height={51}
-                textSize={16}
-              >
-                Connect the Wallet
-              </BorderButton>
-            </ButtonWrapper>
+            <WelcomeConatiner></WelcomeConatiner>
+            <BottomSheet>
+              <RegistrationContainer>
+                <SmallLogo />
+                <div className="title">
+                  <div style={{ fontWeight: 700 }}>Lifemining</div>
+                  Live Someone's Life.
+                </div>
+                <div className="button-container">
+                  <BorderButton
+                    onClick={handleWalletConnect}
+                    buttonColor="rgba(55, 51, 255, 1)"
+                    width={308}
+                    height={51}
+                    margin="31px 0 18px"
+                    textSize={16}
+                  >
+                    Connect the wallet
+                  </BorderButton>
+                </div>
+              </RegistrationContainer>
+            </BottomSheet>
           </Container>
         </>
       )}
@@ -394,3 +409,56 @@ const CompleteContainer = styled.div`
 `;
 
 const HandIcon = styled(Hand)``;
+
+const WelcomeConatiner = styled.div`
+  height: 100vh;
+  width: 100%;
+  background-image: url('/img/sample2.png');
+  background-size: cover;
+  background-position: center;
+`;
+
+const RegistrationContainer = styled.div`
+  padding: 26px 24px 0;
+
+  .title {
+    font-family: InterTight;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    padding: 24px 0 0;
+  }
+
+  .button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .login {
+    width: 312px;
+    height: 48px;
+    background: #e4e4e4;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Inter Tight';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+  }
+`;
+
+const SmallLogo = styled(Logo)`
+  width: 124px;
+  height: 28px;
+  margin-bottom: 10px;
+`;

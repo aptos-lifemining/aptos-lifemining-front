@@ -17,33 +17,9 @@ export default function SplashTemplate() {
 
   return (
     <React.Fragment>
-      {showSplash && (
-        <SplashContainer>
-          <LogoIcon />
-        </SplashContainer>
-      )}
-      <WelcomeConatiner></WelcomeConatiner>
-      <BottomSheet>
-        <RegistrationContainer>
-          <SmallLogo />
-          <div className="title">
-            <div style={{ fontWeight: 700 }}>Lifemining</div>
-            Live Someone's Life.
-          </div>
-          <div className="button-container">
-            <BorderButton
-              buttonColor="rgba(55, 51, 255, 1)"
-              width={308}
-              height={51}
-              margin="31px 0 18px"
-              textSize={16}
-            >
-              Create new account
-            </BorderButton>
-            <div className="login">Login</div>
-          </div>
-        </RegistrationContainer>
-      </BottomSheet>
+      <SplashContainer>
+        <LogoIcon />
+      </SplashContainer>
     </React.Fragment>
   );
 }
