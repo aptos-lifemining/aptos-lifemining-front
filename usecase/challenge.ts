@@ -8,6 +8,13 @@ class ChallengeUseCase {
 
     return data;
   }
+
+  public async getChallenge(id: number) {
+    console.log('id >>>>>>>>>>>>>>>> ', id);
+    const data = await this.ChallengeRepository.getChallenge(id);
+
+    return data;
+  }
 }
 
 export default ChallengeUseCase;

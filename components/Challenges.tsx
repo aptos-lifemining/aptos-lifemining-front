@@ -16,7 +16,6 @@ export default function Challenges({ challenges, title }: Props) {
   const handleClickCard = (id: string) => {
     Router.push(`/challenge/${id}`);
   };
-  console.log('challenges in components', challenges);
   return (
     <React.Fragment>
       <ChallengesContainer>
