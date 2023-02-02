@@ -13,9 +13,18 @@ interface Props {
   titleColor?: string;
   stroked?: boolean;
   position?: string;
+  backCallback?: () => void;
 }
 
-export default function HeaderNavigation({ height, title, stroked, position, titleColor }: Props) {
+export default function HeaderNavigation({
+  height,
+  title,
+  stroked,
+  position,
+  titleColor,
+  backCallback,
+}: Props) {
+  console.log(backCallback);
   return (
     <React.Fragment>
       <Container height={height} position={position} titleColor={titleColor}>
@@ -23,13 +32,13 @@ export default function HeaderNavigation({ height, title, stroked, position, tit
           {stroked ? (
             <LeftArrowStrokeIcon
               onClick={() => {
-                Router.back();
+                backCallback ? backCallback() : Router.back();
               }}
             />
           ) : (
             <LeftArrowIcon
               onClick={() => {
-                Router.back();
+                backCallback ? backCallback() : Router.back();
               }}
             />
           )}
