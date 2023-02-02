@@ -3,8 +3,8 @@ import { VideoRepository } from '../repository/video';
 class VideoUseCase {
   constructor(private readonly VideoRepository: VideoRepository) {}
 
-  public async uploadVideo(formData: any) {
-    const data = await this.VideoRepository.uploadVideo(formData);
+  public async uploadVideo(formData: any, id: string) {
+    const data = await this.VideoRepository.uploadVideo(formData, id);
 
     return data;
   }

@@ -1,7 +1,7 @@
 export interface Challenge {
   id: string;
   title: string;
-  subtitle: string;
+  subTitle: string;
   description: string;
   totalDays: number;
   passDays: number;

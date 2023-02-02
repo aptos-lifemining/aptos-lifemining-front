@@ -11,11 +11,12 @@ import HeaderNavigation from '../components/HeaderNavigation';
 import ProfileIcon from '../components/ProfileIcon';
 import { division } from '../util/list';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { Challenge } from '../entity/challenge';
 
 const DETAIL_INDEX = 0;
 const LOG_INDEX = 1;
 
-export default function ChallengeDetailTemplate({ challenge }) {
+export default function ChallengeDetailTemplate({ challenge }: { challenge: Challenge }) {
   const dummyParticipating = [
     {
       img: '/img/sample.png',

@@ -34,7 +34,10 @@ export default function UploadVideo() {
     formData.append('description', 'description');
 
     try {
-      const res = await new VideoUseCase(new VideoRepositoryImpl(HttpClient)).uploadVideo(formData);
+      const res = await new VideoUseCase(new VideoRepositoryImpl(HttpClient)).uploadVideo(
+        formData,
+        Router.query.challengeID as string,
+      );
 
       if (!res.ok) {
         throw new Error('Failed to upload video');
@@ -54,16 +57,35 @@ export default function UploadVideo() {
       <UploadContainer>
         <HeaderNavigation height={108} />
         <div className="video-container">
-          {previewUrl &&
-            (isVideo(file) ? (
-              <Video url={previewUrl} />
-            ) : (
-              <ImageWrapper>
-                <Image src={previewUrl} fill alt="" />
-              </ImageWrapper>
-            ))}
+          {previewUrl ? (
+            <>
+              {isVideo(file) ? (
+                <Video url={previewUrl} />
+              ) : (
+                <ImageWrapper>
+                  <Image src={previewUrl} fill alt="" />
+                </ImageWrapper>
+              )}
+            </>
+          ) : (
+            <>loading</>
+          )}
         </div>
-        <div className="button-container">
+        <div className="gradient-background" />
+        <ButtonWrapper>
+          <BorderButton
+            width={303}
+            height={40}
+            buttonColor="rgba(28, 255, 9, 1)"
+            textColor="#000000"
+            onClick={() => {
+              Router.push('/video/upload_complete');
+            }}
+          >
+            Upload
+          </BorderButton>
+        </ButtonWrapper>
+        {/* <div className="button-container">
           <BorderButton
             width={212}
             height={35}
@@ -83,7 +105,7 @@ export default function UploadVideo() {
           >
             Upload
           </BorderButton>
-        </div>
+        </div> */}
       </UploadContainer>
     </DefaultLayout>
   );
@@ -92,7 +114,7 @@ export default function UploadVideo() {
 const UploadContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #000000;
 
   .video-container {
@@ -105,6 +127,15 @@ const UploadContainer = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 16px 25px 20px;
+  }
+
+  .gradient-background {
+    z-index: 20;
+    position: fixed;
+    width: 100%;
+    height: 64px;
+    bottom: 109px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
   }
 `;
 
@@ -119,4 +150,16 @@ const ImageWrapper = styled.div`
     object-fit: contain;
     border-radius: 20px;
   }
+`;
+
+const ButtonWrapper = styled.div`
+  z-index: 20;
+  width: 100%;
+  height: 109px;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: #000000;
 `;

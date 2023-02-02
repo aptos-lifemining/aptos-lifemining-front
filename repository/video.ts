@@ -4,7 +4,7 @@ export interface VideoRepository {
   getAllVideos(): any;
   getRecommendedVideos(): any;
   getFollowingVideos(): any;
-  uploadVideo(info: any): any;
+  uploadVideo(formData: any, id: string): any;
 }
 
 class VideoRepositoryImpl implements VideoRepository {
@@ -28,9 +28,12 @@ class VideoRepositoryImpl implements VideoRepository {
     return data;
   }
 
-  public async uploadVideo(fromData: any) {
-    const { data } = await this.client.post(`/videos`, fromData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+  public async uploadVideo(fromData: any, id: string) {
+    const { data } = await this.client.post(`/challenges/verify/${id}`, fromData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        address: sessionStorage.getItem('wallet_address'),
+      },
     });
 
     return data;
