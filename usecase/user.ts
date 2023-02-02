@@ -9,8 +9,29 @@ class UserUseCase {
     return data;
   }
 
-  public async registerUser(handle: string) {
-    console.log('registerUser', handle);
+  public async registerUser(
+    handle: string,
+    address: string,
+    description: string,
+    profileImage: File,
+  ) {
+    const formData = new FormData();
+    formData.append('handle', handle);
+    formData.append('address', address);
+    formData.append('description', description);
+    formData.append('profileImage', profileImage);
+    console.log(formData.getAll('profileImage'));
+
+    try {
+      const data = await this.UserRepository.registerUser(formData);
+      console.log(data);
+
+      sessionStorage.setItem('wallet_address', data.address);
+      return data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 }
 
