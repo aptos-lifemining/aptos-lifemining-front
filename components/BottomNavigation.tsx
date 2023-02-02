@@ -36,7 +36,11 @@ export default function BottomNavigation() {
     <React.Fragment>
       <FixedMargin />
       <NavigationBar>
-        <MenuItem>
+        <MenuItem
+          onClick={() => {
+            router.push('/');
+          }}
+        >
           <GlobeIcon />
           <div className="point-wrapper">
             {router.pathname === '/' && <div className="point" />}
@@ -63,10 +67,14 @@ export default function BottomNavigation() {
           />
           <div className="point-wrapper"></div>
         </MenuItem>
-        <MenuItem>
+        <MenuItem
+          onClick={() => {
+            router.push('/nft_shop');
+          }}
+        >
           <GiftIcon />
           <div className="point-wrapper">
-            {router.pathname === '/gift_shop' && <div className="point" />}
+            {router.pathname === '/nft_shop' && <div className="point" />}
           </div>
         </MenuItem>
         <MenuItem
@@ -97,7 +105,7 @@ const NavigationBar = styled.div`
   background: #ffffff;
   border-top: 0.1px solid rgba(0, 0, 0, 0.1);
   display: flex;
-  z-index: 100;
+  z-index: 1000;
   max-width: 768px;
 `;
 
