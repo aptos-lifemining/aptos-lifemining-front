@@ -8,8 +8,11 @@ interface Props {
   borderRadius?: number;
   buttonColor?: string;
   textColor?: string;
+  textSize?: number;
   margin?: string;
   children?: React.ReactNode;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
 export default function BorderButton({
@@ -18,8 +21,11 @@ export default function BorderButton({
   borderRadius,
   buttonColor,
   textColor,
+  textSize,
   margin,
   children,
+  disabled,
+  onClick,
   ...props
 }: Props & HtmlHTMLAttributes<HTMLElement>) {
   return (
@@ -29,7 +35,12 @@ export default function BorderButton({
       borderRadius={borderRadius}
       buttonColor={buttonColor}
       textColor={textColor}
+      textSize={textSize}
       margin={margin}
+      disabled={disabled}
+      onClick={() => {
+        disabled ? null : onClick && onClick();
+      }}
       {...props}
     >
       <div className="inner-button">{children}</div>
@@ -43,7 +54,9 @@ const ButtonWrapper = styled.div<{
   borderRadius?: number;
   buttonColor?: string;
   textColor?: string;
+  textSize?: number;
   margin?: string;
+  disabled?: boolean;
 }>`
   ${(props) =>
     css`
@@ -52,7 +65,7 @@ const ButtonWrapper = styled.div<{
       border-radius: ${props.borderRadius || 24}px;
       position: relative;
       background-color: transparent;
-      border: 1px solid ${props.buttonColor};
+      border: ${props.disabled ? `1px solid #A3A3A3` : `1px solid ${props.buttonColor}`};
       margin: ${props.margin || '0px'};
 
       .inner-button {
@@ -61,13 +74,14 @@ const ButtonWrapper = styled.div<{
         top: 1px;
         left: 1px;
         position: absolute;
-        background-color: ${props.buttonColor || '#000000'};
+        background-color: ${props.disabled ? `#A3A3A3` : props.buttonColor || '#000000'};
+        /* background-color: ${props.buttonColor || '#000000'}; */
         border-radius: ${props.borderRadius || 24}px;
 
         font-family: InterTight;
         font-style: normal;
         font-weight: 700;
-        font-size: 12px;
+        font-size: ${props.textSize || 12}px;
         line-height: 15px;
         color: ${props.textColor || '#ffffff'};
 
