@@ -28,6 +28,12 @@ class ChallengeUseCase {
 
     return data;
   }
+
+  public async getTotalRecords() {
+    const data = await this.ChallengeRepository.getTotalRecords();
+
+    return data;
+  }
 }
 
 export default ChallengeUseCase;

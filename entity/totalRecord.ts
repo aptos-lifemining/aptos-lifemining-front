@@ -1,3 +1,5 @@
+import { Challenge } from './challenge';
+
 export interface TotalRecord {
   id: number;
   createdAt: Date;
@@ -9,4 +11,5 @@ export interface TotalRecord {
   claimable: boolean;
   // 클레임 완료 여부
   claimed: boolean;
+  challenge: Challenge;
 }

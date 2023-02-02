@@ -8,6 +8,8 @@ export interface ChallengeRepository {
 
   getChallenge(id: number): any;
 
+  getTotalRecords(): any;
+
   getTotalRecordForId(id: number): any;
 
   joinChallenge(id: number): any;
@@ -25,6 +27,12 @@ class ChallengeRepositoryImpl implements ChallengeRepository {
   public async getChallenge(id: number): Promise<Challenge> {
     const { data } = await this.client.get(`/challenges/${id}`);
     console.log('getChallenge', data);
+    return data;
+  }
+
+  public async getTotalRecords(): Promise<TotalRecord[]> {
+    const { data } = await this.client.get(`/challenges/totalRecords`);
+
     return data;
   }
 

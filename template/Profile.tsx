@@ -6,7 +6,9 @@ import styled, { css } from 'styled-components';
 import BorderButton from '../components/BorderButton';
 import BottomSheet from '../components/BottomSheet';
 import HttpClient from '../network/httpClient';
+import ChallengeRepositoryImpl from '../repository/challenge';
 import UserRepositoryImpl from '../repository/user';
+import ChallengeUseCase from '../usecase/challenge';
 import UserUseCase from '../usecase/user';
 
 export default function ProfileTemplate() {
@@ -21,6 +23,16 @@ export default function ProfileTemplate() {
     description: 'Hello, world! I am june.',
   });
 
+  const [totalRecords, setTotalRecords] = React.useState([]);
+
+  async function getRecords() {
+    const recordsResponse = await new ChallengeUseCase(
+      new ChallengeRepositoryImpl(HttpClient),
+    ).getTotalRecords();
+    console.log('recordsResponse >>>>>>> ', recordsResponse);
+    setTotalRecords(recordsResponse);
+  }
+
   async function getUser() {
     const userResponse = await new UserUseCase(new UserRepositoryImpl(HttpClient)).getUser();
     console.log('userResponse >>>>>>> ', userResponse);
@@ -30,6 +42,7 @@ export default function ProfileTemplate() {
   // useEffect
   useEffect(() => {
     getUser();
+    getRecords();
   }, []);
 
   return (
@@ -63,57 +76,33 @@ export default function ProfileTemplate() {
             </div>
           </ProfileContainer>
           <ChallengesConatiner>
-            <ChallengeCard>
-              <div className="head-flex-box">
-                <div className="challenge-name">
-                  <div className="challenge-title">2023 Aptos Hackathon</div>
-                  <div className="detail">View detail</div>
+            {totalRecords.map((record) => (
+              <ChallengeCard>
+                <div className="head-flex-box">
+                  <div className="challenge-name">
+                    <div className="challenge-title">{record.challenge.title}</div>
+                    <div className="detail">View detail</div>
+                  </div>
+                  <BorderButton width={72} height={31} buttonColor="#000000">
+                    Claim
+                  </BorderButton>
                 </div>
-                <BorderButton width={72} height={31}>
-                  Claim
-                </BorderButton>
-              </div>
-              <ProgressContainer divideNum={3}>
-                <div className="progress-bar-filled" />
-                <div className="progress-bar-filled" />
-                <div className="progress-bar" />
-              </ProgressContainer>
-              <div className="typo-days">3 Days</div>
-            </ChallengeCard>
-            <ChallengeCard>
-              <div className="head-flex-box">
-                <div className="challenge-name">
-                  <div className="challenge-title">2023 Aptos Hackathon</div>
-                  <div className="detail">View detail</div>
+                <ProgressContainer divideNum={3}>
+                  {Array.from({ length: record.participationDays }, () => 0).map(() => (
+                    <div className="progress-bar-filled" />
+                  ))}
+                  {Array.from(
+                    { length: record.challenge.totalDays - record.participationDays },
+                    () => 0,
+                  ).map(() => (
+                    <div className="progress-bar-filled" />
+                  ))}
+                </ProgressContainer>
+                <div className="typo-days">
+                  {record.participationDays}/{record.challenge.totalDays}
                 </div>
-                <BorderButton width={72} height={31}>
-                  Claim
-                </BorderButton>
-              </div>
-              <ProgressContainer divideNum={3}>
-                <div className="progress-bar-filled" />
-                <div className="progress-bar-filled" />
-                <div className="progress-bar" />
-              </ProgressContainer>
-              <div className="typo-days">3 Days</div>
-            </ChallengeCard>
-            <ChallengeCard>
-              <div className="head-flex-box">
-                <div className="challenge-name">
-                  <div className="challenge-title">2023 Aptos Hackathon</div>
-                  <div className="detail">View detail</div>
-                </div>
-                <BorderButton width={72} height={31}>
-                  Claim
-                </BorderButton>
-              </div>
-              <ProgressContainer divideNum={3}>
-                <div className="progress-bar-filled" />
-                <div className="progress-bar-filled" />
-                <div className="progress-bar" />
-              </ProgressContainer>
-              <div className="typo-days">3 Days</div>
-            </ChallengeCard>
+              </ChallengeCard>
+            ))}
           </ChallengesConatiner>
         </SheetContent>
       </BottomSheet>
