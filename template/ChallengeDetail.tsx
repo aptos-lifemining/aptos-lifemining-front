@@ -146,7 +146,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
           </ChallengeInfo>
           <LeaderInfo>
             <div className="profile">
-              <ProfileIcon src={challenge.imageUrl} size={36} borderSize={1.5} />
+              <ProfileIcon src={challenge.creator.profileImageURL} size={36} borderSize={1.5} />
               <div className="text-info">
                 <div className="leader-nickname">@{challenge.creator.handle}</div>
                 <div className="typo-followers">4.8K Followers</div>

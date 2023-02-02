@@ -47,7 +47,7 @@ export default function Challenges({ challenges, title }: Props) {
                   <LeaderProfile>
                     <div className="circle">
                       <Image
-                        src={challenge.creator.profileImageURL}
+                        src={challenge.creator.profileImageUrl}
                         width={14}
                         height={14}
                         alt=""

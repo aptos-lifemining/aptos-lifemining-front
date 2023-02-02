@@ -13,19 +13,19 @@ export default function HomeTemplate({ challenges }) {
       <Header />
       <Stories />
       <Challenges
-        challenges={challenges.filter((obj) => obj.type === 'development')}
-        title="Development"
-        key={challenges.filter((obj) => obj.type === 'development').id}
+        challenges={challenges.filter((obj) => obj.type === 'develop')}
+        title="Develop 🧑‍💻"
+        key={challenges.filter((obj) => obj.type === 'develop').id}
       />
       <Challenges
         challenges={challenges.filter((obj) => obj.type === 'excercise')}
-        title="excercise"
+        title="Excercise 🏃‍♀️"
         key={challenges.filter((obj) => obj.type === 'excercise').id}
       />
       <Challenges
-        challenges={challenges.filter((obj) => obj.type === 'writing')}
-        title="writing"
-        key={challenges.filter((obj) => obj.type === 'writing').id}
+        challenges={challenges.filter((obj) => obj.type === 'art')}
+        title="Art 👩‍🎨"
+        key={challenges.filter((obj) => obj.type === 'art').id}
       />
       <CreateChallenge />
       <BottomNavigation />

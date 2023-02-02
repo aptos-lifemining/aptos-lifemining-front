@@ -12,7 +12,7 @@ export interface Challenge {
   creator: {
     id: string;
     handle: string;
-    profileImageURL: string;
+    profileImageUrl: string;
     roomImageURL: string;
     address: string;
     description: string;
