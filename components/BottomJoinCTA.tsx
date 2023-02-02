@@ -1,10 +1,75 @@
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { AptosClient, Types } from 'aptos';
+import Router, { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import styled from 'styled-components';
 import Aptos from '../public/svg/aptos.svg';
 import BorderButton from './BorderButton';
 
-export default function BottomJoinCTA() {
+const aptosClient = new AptosClient(process.env.NEXT_PUBLIC_APTOS_NODE_ADDRESS);
+
+export default function BottomJoinCTA({ challenge }: any) {
+  const router = useRouter();
+  // const challengeID = router.query.id;
+  const challengeID = '0x00123';
+  // const hostAddress = router.query['host_address'];
+  const hostAddress = '470ea80201980ec4f5fa86239a14e4ce36c73f502908edd81292e57da4a77359';
+
+  const {
+    connect,
+    account,
+    network,
+    connected,
+    disconnect,
+    wallet,
+    wallets,
+    signAndSubmitTransaction,
+    signTransaction,
+    signMessage,
+  } = useWallet();
+
+  const signStaking = async () => {
+    const payload: Types.TransactionPayload = {
+      type: 'entry_function_payload',
+      function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
+      type_arguments: [],
+      arguments: [hostAddress, challengeID],
+    };
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      console.log(response);
+      // if you want to wait for transaction
+      await aptosClient.waitForTransaction(response?.hash || '');
+      console.log(response?.hash);
+    } catch (error: any) {
+      console.log('error', error);
+    }
+  };
+
+  const handleJoinButtonClicked = async () => {
+    const payload: Types.TransactionPayload = {
+      type: 'entry_function_payload',
+      function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
+      type_arguments: [],
+      arguments: [hostAddress, challengeID],
+    };
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      console.log(response);
+      // if you want to wait for transaction
+      await aptosClient.waitForTransaction(response?.hash || '');
+
+      if (response?.hash) {
+        router.push(
+          `/join_complete?name=${challenge.title}?fee=${challenge.stakingAPT}?handler=${challenge.creater.handle}`,
+        );
+      }
+    } catch (error: any) {
+      console.log('error', error);
+    }
+  };
+
   return (
     <React.Fragment>
       <FixedMargin />
@@ -21,6 +86,7 @@ export default function BottomJoinCTA() {
             borderRadius={24}
             buttonColor="#3733ff"
             textColor="#ffffff"
+            onClick={handleJoinButtonClicked}
           >
             Join now!
           </BorderButton>

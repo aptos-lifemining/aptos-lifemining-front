@@ -10,6 +10,7 @@ import DefaultLayout from '../components/DefaultLayout';
 import HeaderNavigation from '../components/HeaderNavigation';
 import ProfileIcon from '../components/ProfileIcon';
 import { division } from '../util/list';
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
 
 const DETAIL_INDEX = 0;
 const LOG_INDEX = 1;
@@ -66,6 +67,9 @@ export default function ChallengeDetailTemplate() {
   const titleRef = useRef<HTMLDivElement>();
   const thumbnailRef = useRef<HTMLDivElement>();
   const stickyAreadRef = useRef<HTMLDivElement>();
+
+  const { connected } = useWallet();
+  console.log(connected);
 
   const [isAnimated, setIsAnimated] = useState(false);
 
@@ -193,43 +197,6 @@ export default function ChallengeDetailTemplate() {
                 ))}
               </div>
             ))}
-            {/* <div className="swiper-container">
-              <div className="profile">
-                <ProfileIcon src={'/img/sample.png'} size={63} borderSize={1.5} />
-                <div className="nickname">@ga_gline</div>
-                <div className="day">12th days</div>
-              </div>
-              <div className="profile">
-                <ProfileIcon src={'/img/sample.png'} size={63} borderSize={1.5} />
-                <div className="nickname">@ga_gline</div>
-                <div className="day">12th days</div>
-              </div>
-              <div className="profile">
-                <ProfileIcon src={'/img/sample.png'} size={63} borderSize={1.5} />
-                <div className="nickname">@ga_gline</div>
-                <div className="day">12th days</div>
-              </div>
-              <div className="profile">
-                <ProfileIcon src={'/img/sample.png'} size={63} borderSize={1.5} />
-                <div className="nickname">@ga_gline</div>
-                <div className="day">12th days</div>
-              </div>
-              <div className="profile">
-                <ProfileIcon src={'/img/sample.png'} size={63} borderSize={1.5} />
-                <div className="nickname">@ga_gline</div>
-                <div className="day">12th days</div>
-              </div>
-              <div className="profile">
-                <ProfileIcon src={'/img/sample.png'} size={63} borderSize={1.5} />
-                <div className="nickname">@ga_gline</div>
-                <div className="day">12th days</div>
-              </div>
-              <div className="profile">
-                <ProfileIcon src={'/img/sample.png'} size={63} borderSize={1.5} />
-                <div className="nickname">@ga_gline</div>
-                <div className="day">12th days</div>
-              </div>
-            </div> */}
           </ProfileContainer>
         </div>
       )}
