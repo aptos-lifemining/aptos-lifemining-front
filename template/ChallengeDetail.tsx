@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import styled, { css, keyframes } from 'styled-components';
 
 import AptosUnit from '../components/AptosUnit';
@@ -10,7 +11,6 @@ import DefaultLayout from '../components/DefaultLayout';
 import HeaderNavigation from '../components/HeaderNavigation';
 import ProfileIcon from '../components/ProfileIcon';
 import { division } from '../util/list';
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
 
 const DETAIL_INDEX = 0;
 const LOG_INDEX = 1;
@@ -18,51 +18,51 @@ const LOG_INDEX = 1;
 export default function ChallengeDetailTemplate({ challenge }) {
   const dummyParticipating = [
     {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
+      id: 2,
+      handle: 'june',
+      profileImageUrl:
+        'https://dev-static-files.uzumeta.com/lifemining/profile-images/사무실_앞모습_정방형.jpg',
+      roomImageURL: '',
+      address: '0xb8542ced3b91535ec569a537a7eff91bec498f25bca349473b6e2856529787bas',
+      description: 'Hello, world! I am june.',
     },
     {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
+      id: 1,
+      handle: 'jiwoo',
+      profileImageUrl:
+        'https://dev-static-files.uzumeta.com/lifemining/profile-images/aptomingo.png',
+      roomImageURL: '',
+      address: '0x5ba5657da3173dbf93b86c4416963f6654c9667573bb9c466ba495ad7576c791',
+      description: 'I am a frontend developer jiwoo.',
     },
     {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
+      id: 2,
+      handle: 'immortal',
+      profileImageUrl:
+        'https://dev-static-files.uzumeta.com/lifemining/profile-images/saudi-ape.jpeg',
+      roomImageURL: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
+      address: null,
+      description: null,
     },
     {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
+      id: 0,
+      handle: '789789',
+      profileImageUrl:
+        'https://dev-static-files.uzumeta.com/lifemining/profile-images/aptos-monkey.jpeg',
+      roomImageURL: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
+      address: null,
+      description: null,
     },
     {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
-    },
-    {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
-    },
-    {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
-    },
-    {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
-    },
-    {
-      img: '/img/sample.png',
-      nickname: '@ga_gline',
-      days: '12th days',
+      id: 1,
+      handle: 'lifter',
+      profileImageUrl: 'https://dev-static-files.uzumeta.com/lifemining/profile-images/12.jpg',
+      roomImageURL: 'https://dev-static-files.uzumeta.com/room-images/room.jpg',
+      address: null,
+      description: null,
     },
   ];
+
   const [tabIndex, setTabIndex] = useState(DETAIL_INDEX);
   const titleRef = useRef<HTMLDivElement>();
   const thumbnailRef = useRef<HTMLDivElement>();
@@ -116,8 +116,8 @@ export default function ChallengeDetailTemplate({ challenge }) {
         <StakingInfo>
           <AptosUnit fee="2.50" color="#3733FF" fontSize={24} />
           <div className="typo-description">
-            <span style={{ fontWeight: 700 }}>{challenge.stakingAPT} APT</span> refund upon
-            completion of staking{' '}
+            <span style={{ fontWeight: 700 }}>{(challenge.stakingAPT * 5) / 2} APT</span> refund
+            upon completion of staking{' '}
           </div>
         </StakingInfo>
         <TabContainer curIndex={tabIndex}>
@@ -173,11 +173,11 @@ export default function ChallengeDetailTemplate({ challenge }) {
           <ProfileContainer>
             {division(dummyParticipating, 8).map((group) => (
               <div className="swiper-container">
-                {group.map((profile) => (
+                {group.map((user) => (
                   <div className="profile">
-                    <ProfileIcon src={'/img/sample.png'} size={63} borderSize={1.5} />
-                    <div className="nickname">@ga_gline</div>
-                    <div className="day">12th days</div>
+                    <ProfileIcon src={user.profileImageUrl} size={63} borderSize={1.5} />
+                    <div className="nickname">@{user.handle}</div>
+                    <div className="day">{user.id} days</div>
                   </div>
                 ))}
               </div>
@@ -420,6 +420,17 @@ const ContentContainer = styled.div`
 
   .text-content {
     padding: 0 24px;
+    font-family: InterTight;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+
+    white-space: pre-wrap;
+
+    /* text black */
+
+    color: #333333;
   }
 `;
 

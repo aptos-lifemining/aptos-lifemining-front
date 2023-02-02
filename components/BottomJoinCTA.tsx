@@ -1,9 +1,10 @@
+import React, { useState } from 'react';
+import Router, { useRouter } from 'next/router';
+
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { AptosClient, Types } from 'aptos';
-import Router, { useRouter } from 'next/router';
-import React, { useState } from 'react';
-
 import styled from 'styled-components';
+
 import Aptos from '../public/svg/aptos.svg';
 import BorderButton from './BorderButton';
 
