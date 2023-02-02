@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+import { TotalRecord } from '../entity/totalRecord';
 
 import { User } from '../entity/user';
 

@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
+import Router from 'next/router';
 
 import styled, { css } from 'styled-components';
 
 import BorderButton from '../components/BorderButton';
+import BottomNavigation from '../components/BottomNavigation';
 import BottomSheet from '../components/BottomSheet';
 import HttpClient from '../network/httpClient';
+import ChallengeRepositoryImpl from '../repository/challenge';
 import UserRepositoryImpl from '../repository/user';
+import ChallengeUseCase from '../usecase/challenge';
 import UserUseCase from '../usecase/user';
-import BottomNavigation from '../components/BottomNavigation';
 
 export default function ProfileTemplate() {
   // useState user
@@ -22,6 +25,16 @@ export default function ProfileTemplate() {
     description: 'Hello, world! I am june.',
   });
 
+  const [totalRecords, setTotalRecords] = React.useState([]);
+
+  async function getRecords() {
+    const recordsResponse = await new ChallengeUseCase(
+      new ChallengeRepositoryImpl(HttpClient),
+    ).getTotalRecords();
+    console.log('recordsResponse >>>>>>> ', recordsResponse);
+    setTotalRecords(recordsResponse);
+  }
+
   async function getUser() {
     const userResponse = await new UserUseCase(new UserRepositoryImpl(HttpClient)).getUser();
     console.log('userResponse >>>>>>> ', userResponse);
@@ -31,100 +44,96 @@ export default function ProfileTemplate() {
   // useEffect
   useEffect(() => {
     getUser();
+    getRecords();
   }, []);
+
+  async function handleClaim(id: number) {
+    const response = await new ChallengeUseCase(new ChallengeRepositoryImpl(HttpClient)).claim(id);
+    console.log('response >>>>>>> ', response);
+  }
 
   return (
     <Container roomImageUrl={user.roomImageUrl}>
       <div className="background">
-        <ButtonContainer>
-          <BorderButton width={181} height={41} buttonColor="#000000">
-            Update My room
-          </BorderButton>
-        </ButtonContainer>
-        <BottomSheet>
-          <SheetContent>
-            <div className="edit">Edit</div>
-            <ProfileContainer>
-              <div className="image-wrapper">
-                <Image src={user.profileImageUrl} width={64} height={64} alt="" />
-              </div>
-              <div className="name">@{user.handle}</div>
-              <div className="description">{user.description}</div>
-              <BorderButton width={101} height={41} buttonColor="#3733FF;">
-                Mine Life.
-              </BorderButton>
-              <div className="follower-box">
-                <div className="content">
-                  <div className="number">128</div>
-                  <div className="unit">Day Logs</div>
-                </div>
-                <div className="content">
-                  <div className="number">4</div>
-                  <div className="unit">Created Challenges</div>
-                </div>
-                <div className="content">
-                  <div className="number">102</div>
-                  <div className="unit">Joiners</div>
-                </div>
-              </div>
-            </ProfileContainer>
-            <ChallengesConatiner>
-              <ChallengeCard>
-                <div className="head-flex-box">
-                  <div className="challenge-name">
-                    <div className="challenge-title">2023 Aptos Hackathon</div>
-                    <div className="detail">View detail</div>
-                  </div>
-                  <BorderButton width={72} height={31} buttonColor="#000000">
-                    Claim
-                  </BorderButton>
-                </div>
-                <ProgressContainer divideNum={3}>
-                  <div className="progress-bar-filled" />
-                  <div className="progress-bar-filled" />
-                  <div className="progress-bar" />
-                </ProgressContainer>
-                <div className="typo-days">3 Days</div>
-              </ChallengeCard>
-              <ChallengeCard>
-                <div className="head-flex-box">
-                  <div className="challenge-name">
-                    <div className="challenge-title">2023 Aptos Hackathon</div>
-                    <div className="detail">View detail</div>
-                  </div>
-                  <BorderButton width={72} height={31}>
-                    Claim
-                  </BorderButton>
-                </div>
-                <ProgressContainer divideNum={3}>
-                  <div className="progress-bar-filled" />
-                  <div className="progress-bar-filled" />
-                  <div className="progress-bar" />
-                </ProgressContainer>
-                <div className="typo-days">3 Days</div>
-              </ChallengeCard>
-              <ChallengeCard>
-                <div className="head-flex-box">
-                  <div className="challenge-name">
-                    <div className="challenge-title">2023 Aptos Hackathon</div>
-                    <div className="detail">View detail</div>
-                  </div>
-                  <BorderButton width={72} height={31}>
-                    Claim
-                  </BorderButton>
-                </div>
-                <ProgressContainer divideNum={3}>
-                  <div className="progress-bar-filled" />
-                  <div className="progress-bar-filled" />
-                  <div className="progress-bar" />
-                </ProgressContainer>
-                <div className="typo-days">3 Days</div>
-              </ChallengeCard>
-            </ChallengesConatiner>
-          </SheetContent>
-        </BottomSheet>
+        {totalRecords?.filter((record) => record.claimable).length > 0 && (
+          <ButtonContainer>
+            <BorderButton width={181} height={41} buttonColor="#000000">
+              Update My room
+            </BorderButton>
+          </ButtonContainer>
+        )}
       </div>
-      {/* <BottomNavigation /> */}
+      <BottomSheet>
+        <SheetContent>
+          <div className="edit">Edit</div>
+          <ProfileContainer>
+            <div className="image-wrapper">
+              <Image src={user.profileImageUrl} width={64} height={64} alt="" />
+            </div>
+            <div className="name">@{user.handle}</div>
+            <div className="description">{user.description}</div>
+            <BorderButton width={101} height={41} buttonColor="#3733FF">
+              Mine Life.
+            </BorderButton>
+            <div className="follower-box">
+              <div className="content">
+                <div className="number">128</div>
+                <div className="unit">Day Logs</div>
+              </div>
+              <div className="content">
+                <div className="number">4</div>
+                <div className="unit">Created Challenges</div>
+              </div>
+              <div className="content">
+                <div className="number">102</div>
+                <div className="unit">Joiners</div>
+              </div>
+            </div>
+          </ProfileContainer>
+          <ChallengesConatiner>
+            {totalRecords.map((record) => (
+              <ChallengeCard>
+                <div className="head-flex-box">
+                  <div className="challenge-name">
+                    <div className="challenge-title">{record.challenge.title}</div>
+                    <div
+                      className="detail"
+                      onClick={() => {
+                        Router.push(`challenge/${record.challenge.id}`);
+                      }}
+                    >
+                      View detail
+                    </div>
+                  </div>
+                  <BorderButton
+                    width={72}
+                    height={31}
+                    buttonColor="#000000"
+                    disabled={!record.claimable}
+                    onClick={() => handleClaim(record.challenge.id)}
+                  >
+                    {record.claimed ? 'Claimed' : 'Claim'}
+                  </BorderButton>
+                </div>
+                <ProgressContainer divideNum={3}>
+                  {Array.from({ length: record.participationDays }, () => 0).map(() => (
+                    <div className="progress-bar-filled" />
+                  ))}
+                  {Array.from(
+                    { length: record.challenge.totalDays - record.participationDays },
+                    () => 0,
+                  ).map(() => (
+                    <div className="progress-bar" />
+                  ))}
+                </ProgressContainer>
+                <div className="typo-days">
+                  {record.participationDays}/{record.challenge.totalDays}
+                </div>
+              </ChallengeCard>
+            ))}
+          </ChallengesConatiner>
+        </SheetContent>
+      </BottomSheet>
     </Container>
   );
 }

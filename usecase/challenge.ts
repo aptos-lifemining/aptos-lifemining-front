@@ -33,6 +33,18 @@ class ChallengeUseCase {
       return null;
     }
   }
+
+  public async getTotalRecords() {
+    const data = await this.ChallengeRepository.getTotalRecords();
+
+    return data;
+  }
+
+  public async claim(id: number) {
+    const data = await this.ChallengeRepository.claim(id);
+
+    return data;
+  }
 }
 
 export default ChallengeUseCase;
