@@ -15,6 +15,12 @@ class ChallengeUseCase {
 
     return data;
   }
+
+  public async getTotalRecordForId(id: number) {
+    const data = await this.ChallengeRepository.getTotalRecordForId(id);
+
+    return data;
+  }
 }
 
 export default ChallengeUseCase;

@@ -10,12 +10,16 @@ import BorderButton from './BorderButton';
 
 const aptosClient = new AptosClient(process.env.NEXT_PUBLIC_APTOS_NODE_ADDRESS);
 
-export default function BottomJoinCTA({ challenge }: any) {
+export default function BottomJoinCTA({ challenge, totalRecord }: any) {
   const router = useRouter();
   // const challengeID = router.query.id;
   const challengeID = '0x00123';
   // const hostAddress = router.query['host_address'];
   const hostAddress = '470ea80201980ec4f5fa86239a14e4ce36c73f502908edd81292e57da4a77359';
+
+  // 몇 일차 인증할 차례인지
+  // 만약 Join도 안 했다면 0
+  const dayNumber = totalRecord ? totalRecord.participationDays + 1 : 0;
 
   const {
     connect,
@@ -63,7 +67,7 @@ export default function BottomJoinCTA({ challenge }: any) {
 
       if (response?.hash) {
         router.push(
-          `/join_complete?name=${challenge.title}?fee=${challenge.stakingAPT}?handler=${challenge.creater.handle}`,
+          `/join_complete?name=${challenge.title}?fee=${challenge.stakingAPT}?handler=${challenge.creator.handle}`,
         );
       }
     } catch (error: any) {
@@ -89,7 +93,7 @@ export default function BottomJoinCTA({ challenge }: any) {
             textColor="#ffffff"
             onClick={handleJoinButtonClicked}
           >
-            Join now!
+            {dayNumber == 0 ? 'Join now!' : `Record Day ${dayNumber}`}
           </BorderButton>
         </ContentBox>
       </BottomBar>

@@ -10,6 +10,9 @@ import BottomJoinCTA from '../components/BottomJoinCTA';
 import DefaultLayout from '../components/DefaultLayout';
 import HeaderNavigation from '../components/HeaderNavigation';
 import ProfileIcon from '../components/ProfileIcon';
+import HttpClient from '../network/httpClient';
+import ChallengeRepositoryImpl from '../repository/challenge';
+import ChallengeUseCase from '../usecase/challenge';
 import { division } from '../util/list';
 
 const DETAIL_INDEX = 0;
@@ -62,6 +65,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
       description: null,
     },
   ];
+  const [totalRecord, setTotalRecord] = useState(null);
 
   const [tabIndex, setTabIndex] = useState(DETAIL_INDEX);
   const titleRef = useRef<HTMLDivElement>();
@@ -72,7 +76,20 @@ export default function ChallengeDetailTemplate({ challenge }) {
   console.log(connected);
 
   const [isAnimated, setIsAnimated] = useState(false);
-  console.log('challenge >>>>>>>>>>>>>>>>>>', challenge);
+  console.log('challenge id >>>>>>>>>>>>>>>>>>', challenge.id);
+
+  const getTotalRecord = async () => {
+    const response = await new ChallengeUseCase(
+      new ChallengeRepositoryImpl(HttpClient),
+    ).getTotalRecordForId(challenge.id);
+    console.log('response >>>>>>>>>>>>>>>> ', response);
+    setTotalRecord(response);
+  };
+
+  useEffect(() => {
+    getTotalRecord();
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -114,7 +131,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
           </div>
         </ThumbnailContainer>
         <StakingInfo>
-          <AptosUnit fee="2.50" color="#3733FF" fontSize={24} />
+          <AptosUnit fee={challenge.stakingAPT} color="#3733FF" fontSize={24} />
           <div className="typo-description">
             <span style={{ fontWeight: 700 }}>{(challenge.stakingAPT * 5) / 2} APT</span> refund
             upon completion of staking{' '}
@@ -185,7 +202,7 @@ export default function ChallengeDetailTemplate({ challenge }) {
           </ProfileContainer>
         </div>
       )}
-      <BottomJoinCTA />
+      <BottomJoinCTA challenge={challenge} totalRecord={totalRecord} />
     </DefaultLayout>
   );
 }
