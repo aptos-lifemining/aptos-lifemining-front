@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
+import Router from 'next/router';
 
 import styled, { css } from 'styled-components';
 
@@ -90,7 +91,14 @@ export default function ProfileTemplate() {
                 <div className="head-flex-box">
                   <div className="challenge-name">
                     <div className="challenge-title">{record.challenge.title}</div>
-                    <div className="detail">View detail</div>
+                    <div
+                      className="detail"
+                      onClick={() => {
+                        Router.push(`challenge/${record.challenge.id}`);
+                      }}
+                    >
+                      View detail
+                    </div>
                   </div>
                   <BorderButton
                     width={72}
