@@ -4,9 +4,14 @@ class VideoUseCase {
   constructor(private readonly VideoRepository: VideoRepository) {}
 
   public async uploadVideo(formData: any, id: string) {
-    const data = await this.VideoRepository.uploadVideo(formData, id);
+    try {
+      const data = await this.VideoRepository.uploadVideo(formData, id);
 
-    return data;
+      return data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 
   public async registerUser(handle: string) {
