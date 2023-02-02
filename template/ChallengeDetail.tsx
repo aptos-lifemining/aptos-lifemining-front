@@ -10,6 +10,7 @@ import BottomJoinCTA from '../components/BottomJoinCTA';
 import DefaultLayout from '../components/DefaultLayout';
 import HeaderNavigation from '../components/HeaderNavigation';
 import ProfileIcon from '../components/ProfileIcon';
+import { Challenge } from '../entity/challenge';
 import HttpClient from '../network/httpClient';
 import ChallengeRepositoryImpl from '../repository/challenge';
 import ChallengeUseCase from '../usecase/challenge';
@@ -18,7 +19,7 @@ import { division } from '../util/list';
 const DETAIL_INDEX = 0;
 const LOG_INDEX = 1;
 
-export default function ChallengeDetailTemplate({ challenge }) {
+export default function ChallengeDetailTemplate({ challenge }: { challenge: Challenge }) {
   const dummyParticipating = [
     {
       id: 2,

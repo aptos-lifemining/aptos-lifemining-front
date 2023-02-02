@@ -30,7 +30,7 @@ export function useBottomSheet() {
 
   // Touch Event 핸들러들을 등록한다.
   useEffect(() => {
-    const MAX_Y = window.innerHeight - 330;
+    const MAX_Y = window.innerHeight - 270;
     const MIN_Y = 60;
 
     const canUserMoveBottomSheet = () => {

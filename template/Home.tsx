@@ -59,8 +59,9 @@ export default function HomeTemplate({ challenges, users }: Props) {
             <RegistrationContainer>
               <SmallLogo />
               <div className="title">
-                <div style={{ fontWeight: 700 }}>Lifemining</div>
-                Live Someone's Life.
+                Challenge, Certify and Collect
+                <br />
+                Start you life mining today
               </div>
               <div className="button-container">
                 <BorderButton
@@ -85,22 +86,22 @@ export default function HomeTemplate({ challenges, users }: Props) {
 const WelcomeConatiner = styled.div`
   height: 100vh;
   width: 100%;
-  background-image: url('/img/sample2.png');
+  background-image: url('/img/aaa.gif');
   background-size: cover;
   background-position: center;
 `;
 
 const RegistrationContainer = styled.div`
-  padding: 26px 24px 0;
+  padding: 16px 24px 0;
 
   .title {
     font-family: InterTight;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 20px;
     color: #000000;
-    padding: 24px 0 0;
+    padding: 12px 0 0;
   }
 
   .button-container {
@@ -108,7 +109,7 @@ const RegistrationContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 0px;
   }
 
   .login {
