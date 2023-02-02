@@ -17,6 +17,7 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
   // const hostAddress = router.query['host_address'];
   const hostAddress = '470ea80201980ec4f5fa86239a14e4ce36c73f502908edd81292e57da4a77359';
 
+  const isJoined = totalRecord ? true : false;
   // 몇 일차 인증할 차례인지
   // 만약 Join도 안 했다면 0
   const dayNumber = totalRecord ? totalRecord.participationDays + 1 : 0;
@@ -93,7 +94,7 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
             textColor="#ffffff"
             onClick={handleJoinButtonClicked}
           >
-            {dayNumber == 0 ? 'Join now!' : `Record Day ${dayNumber}`}
+            {isJoined ? 'Join now!' : `Record Day ${dayNumber}`}
           </BorderButton>
         </ContentBox>
       </BottomBar>
