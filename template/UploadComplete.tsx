@@ -1,9 +1,12 @@
+import Router from 'next/router';
 import React from 'react';
 
 import styled, { keyframes } from 'styled-components';
+import BorderButton from '../components/BorderButton';
 import ProfileIcon from '../components/ProfileIcon';
 
 import Hand from '../public/svg/shake_hand.svg';
+import Profile from '../public/svg/user.svg';
 
 export default function UploadCompleteTemplate() {
   return (
@@ -11,26 +14,49 @@ export default function UploadCompleteTemplate() {
       <ContentWrapper>
         <HandIcon />
         <div className="success-title">
-          The great
+          Final day,
           <br />
-          first step!
+          You made it!
         </div>
         <div className="success-sub">Challenge authentication completed! </div>
-        <div className="challenge-category">Work out! 3 weeks challenge 🥋🥋</div>
+        <div className="challenge-category">Aptos Seoul Hackathon 2023</div>
         <ProfileIconContainer>
           <div className="first-profile">
-            <ProfileIcon src="/img/sample.png" size={64} borderSize={1.5} />
-            <div className="day">day1</div>
+            <ProfileIcon src="/img/hack.png" size={64} borderSize={1.5} />
+            <div className="day">day3</div>
           </div>
           <div className="second-profile">
-            <ProfileIcon src="/img/sample.png" size={64} borderSize={1.5} />
-            <div className="day">day1</div>
+            <ProfileIcon src="/img/hack.png" size={64} borderSize={1.5} />
+            <div className="day">day2</div>
           </div>
           <div className="third-profile">
-            <ProfileIcon src="/img/sample.png" size={64} borderSize={1.5} />
+            <ProfileIcon src="/img/hack.png" size={64} borderSize={1.5} />
             <div className="day">day1</div>
           </div>
         </ProfileIconContainer>
+        <ButtonContainer>
+          <div
+            className="home"
+            onClick={() => {
+              Router.push('/');
+            }}
+          >
+            Home
+          </div>
+          <BorderButton
+            width={188}
+            height={44}
+            buttonColor="rgba(55, 51, 255, 1)"
+            textColor="#ffffff"
+            textSize={16}
+            onClick={() => {
+              Router.replace('/profile');
+            }}
+          >
+            <UserBadge />
+            Go to Profile
+          </BorderButton>
+        </ButtonContainer>
       </ContentWrapper>
     </Container>
   );
@@ -125,7 +151,7 @@ const HandIcon = styled(Hand)`
 const ProfileIconContainer = styled.div`
   width: 100%;
   position: absolute;
-  top: 341px;
+  top: 326px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -186,4 +212,43 @@ const ProfileIconContainer = styled.div`
       padding: 8px 0 0;
     }
   }
+`;
+
+const ButtonContainer = styled.div`
+  z-index: 20;
+  width: 100%;
+  height: 79px;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: #000000;
+  padding: 0 30px;
+
+  .home {
+    font-family: InterTight;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 108px;
+    height: 48px;
+    background: #262626;
+    border-radius: 24px;
+  }
+`;
+
+const UserBadge = styled(Profile)`
+  width: 20px;
+  height: 20px;
+  path {
+    stroke: #ffffff;
+  }
+  margin-right: 6px;
 `;

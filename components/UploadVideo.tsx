@@ -1,8 +1,11 @@
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { Types } from 'aptos';
 import Image from 'next/image';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
+import { aptosClient } from '../network/aptos';
 import HttpClient from '../network/httpClient';
 import VideoRepositoryImpl from '../repository/video';
 import VideoUseCase from '../usecase/video';
@@ -13,9 +16,27 @@ import HeaderNavigation from './HeaderNavigation';
 import Video from './Video';
 
 export default function UploadVideo() {
+  const {
+    connect,
+    account,
+    network,
+    connected,
+    disconnect,
+    wallet,
+    wallets,
+    signAndSubmitTransaction,
+    signTransaction,
+    signMessage,
+  } = useWallet();
+
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const videoUrl = Router.query.videoUrl;
+  const fileName = Router.query.fileName;
+  const challengeID = Router.query.challengeID;
+  const hostAddress = Router.query.hostAddress;
 
   useEffect(() => {
     if (!Router.query.videoUrl) {
@@ -30,20 +51,26 @@ export default function UploadVideo() {
 
     const formData = new FormData();
     formData.append('video', file);
-    formData.append('title', file.name);
-    formData.append('description', 'description');
 
     try {
-      const res = await new VideoUseCase(new VideoRepositoryImpl(HttpClient)).uploadVideo(
-        formData,
-        Router.query.challengeID as string,
-      );
+      const serverResponse = await new VideoUseCase(
+        new VideoRepositoryImpl(HttpClient),
+      ).uploadVideo(formData, Router.query.challengeID as string);
 
-      if (!res.ok) {
-        throw new Error('Failed to upload video');
+      if (serverResponse) {
+        // aptos join
+        const payload: Types.TransactionPayload = {
+          type: 'entry_function_payload',
+          function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::submit_daily_checkpoint`,
+          type_arguments: [],
+          arguments: [hostAddress, challengeID, 2],
+        };
+        const response = await signAndSubmitTransaction(payload);
+        console.log(response);
+        // if you want to wait for transaction
+        await aptosClient.waitForTransaction(response?.hash || '');
+        response?.hash && serverResponse && Router.push('/video/upload_complete');
       }
-
-      alert('Video uploaded successfully!');
     } catch (err) {
       console.error(err);
       alert('Failed to upload video');
@@ -78,34 +105,11 @@ export default function UploadVideo() {
             height={40}
             buttonColor="rgba(28, 255, 9, 1)"
             textColor="#000000"
-            onClick={() => {
-              Router.push('/video/upload_complete');
-            }}
+            onClick={handleUpload}
           >
             Upload
           </BorderButton>
         </ButtonWrapper>
-        {/* <div className="button-container">
-          <BorderButton
-            width={212}
-            height={35}
-            buttonColor="rgba(38, 38, 38, 1)"
-            textColor="#ffffff"
-          >
-            asdfasdfaeeffafesdf
-          </BorderButton>
-          <BorderButton
-            width={84}
-            height={35}
-            buttonColor="rgba(28, 255, 9, 1)"
-            textColor="#000000"
-            onClick={() => {
-              Router.push('/video/upload_complete');
-            }}
-          >
-            Upload
-          </BorderButton>
-        </div> */}
       </UploadContainer>
     </DefaultLayout>
   );

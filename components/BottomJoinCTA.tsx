@@ -42,57 +42,52 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
     signMessage,
   } = useWallet();
 
-  const signStaking = async () => {
-    const payload: Types.TransactionPayload = {
-      type: 'entry_function_payload',
-      function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
-      type_arguments: [],
-      arguments: [hostAddress, challengeID],
-    };
+  const handleJoinClick = async () => {
+    // challenge join
     try {
-      const response = await signAndSubmitTransaction(payload);
-      console.log(response);
-      // if you want to wait for transaction
-      await aptosClient.waitForTransaction(response?.hash || '');
-      console.log(response?.hash);
+      const serverResponse = await new ChallengeUseCase(
+        new ChallengeRepositoryImpl(HttpClient),
+      ).joinChallenge(challenge.id);
+
+      if (serverResponse) {
+        // aptos join
+        const payload: Types.TransactionPayload = {
+          type: 'entry_function_payload',
+          function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
+          type_arguments: [],
+          arguments: [hostAddress, challengeID],
+        };
+        const response = await signAndSubmitTransaction(payload);
+        console.log(response);
+        // if you want to wait for transaction
+        await aptosClient.waitForTransaction(response?.hash || '');
+        console.log(response?.hash);
+      }
     } catch (error: any) {
       console.log('error', error);
     }
   };
 
-  const handleJoinButtonClicked = async () => {
-    console.log('isJoined', isJoined);
-    console.log('dayNumber', dayNumber);
-    if (!isJoined) {
-      // challenge join
-      const res = await new ChallengeUseCase(new ChallengeRepositoryImpl(HttpClient)).joinChallenge(
-        challenge.id,
+  const handleRecordClick = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      Router.push(
+        {
+          pathname: '/video/upload',
+          query: {
+            videoUrl: reader.result,
+            fileName: file.name,
+            challengeID: challenge.id,
+            hostAddress: hostAddress,
+          },
+        },
+        'video/upload',
       );
-      console.log('>>>>>>>> join challenge', res);
+    };
 
-      const payload: Types.TransactionPayload = {
-        type: 'entry_function_payload',
-        function: `${process.env.NEXT_PUBLIC_CONTRACT_RESOURCE_ADDRESS}::Challenge::join_challenge`,
-        type_arguments: [],
-        arguments: [hostAddress, challengeID],
-      };
-      try {
-        const response = await signAndSubmitTransaction(payload);
-        console.log(response);
-        // if you want to wait for transaction
-        await aptosClient.waitForTransaction(response?.hash || '');
-
-        if (response?.hash) {
-          router.push(
-            `/join_complete?name=${challenge.title}?fee=${challenge.stakingAPT}?handler=${challenge.creator.handle}`,
-          );
-        }
-      } catch (error: any) {
-        console.log('error', error);
-      }
-    } else {
-      // TODO : @지우 채우세요잉 -> n일차 인증하기로 가는 로직
-    }
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -105,16 +100,41 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
             <AptosLogo />
             <div className="typo-unit">APT</div>
           </div>
-          <BorderButton
-            width={180}
-            height={33}
-            borderRadius={24}
-            buttonColor={!isJoined ? '#3733ff' : '#000000'}
-            textColor="#ffffff"
-            onClick={handleJoinButtonClicked}
-          >
-            {!isJoined ? 'Join now!' : `Record Day ${dayNumber}`}
-          </BorderButton>
+          {!isJoined ? (
+            <BorderButton
+              width={180}
+              height={33}
+              borderRadius={24}
+              buttonColor={!isJoined ? '#3733ff' : '#000000'}
+              textColor="#ffffff"
+              onClick={handleJoinClick}
+            >
+              Join now!
+            </BorderButton>
+          ) : (
+            <>
+              <label htmlFor="upload-input">
+                <BorderButton
+                  width={180}
+                  height={33}
+                  borderRadius={24}
+                  buttonColor={!isJoined ? '#3733ff' : '#000000'}
+                  textColor="#ffffff"
+                >
+                  {`Record Day ${dayNumber}`}
+                </BorderButton>
+              </label>
+              <input
+                id="upload-input"
+                type="file"
+                onChange={(e) => handleRecordClick(e)}
+                accept="video/*, image/gif, image/jpeg, image/png"
+                style={{
+                  display: 'none',
+                }}
+              />
+            </>
+          )}
         </ContentBox>
       </BottomBar>
     </React.Fragment>
