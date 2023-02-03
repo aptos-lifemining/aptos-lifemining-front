@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { Types } from 'aptos';
@@ -30,21 +30,23 @@ export default function UploadVideo() {
     signMessage,
   } = useWallet();
 
+  const router = useRouter();
+
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const videoUrl = Router.query.videoUrl;
-  const fileName = Router.query.fileName;
-  const challengeID = Router.query.challengeID;
-  const hostAddress = Router.query.hostAddress;
+  const videoUrl = router.query.videoUrl;
+  const fileName = router.query.fileName;
+  const challengeID = router.query.challengeID;
+  const hostAddress = router.query.hostAddress;
 
   useEffect(() => {
-    if (!Router.query.videoUrl) {
-      Router.replace('/');
+    if (!router.query.videoUrl) {
+      router.replace('/');
     }
-    setPreviewUrl(Router.query.videoUrl);
-    setFile(base64StringToFile(Router.query.videoUrl as string, Router.query.fileName as string));
+    setPreviewUrl(router.query.videoUrl);
+    setFile(base64StringToFile(router.query.videoUrl as string, router.query.fileName as string));
   }, []);
 
   const handleUpload = async () => {
@@ -56,7 +58,7 @@ export default function UploadVideo() {
     try {
       const serverResponse = await new VideoUseCase(
         new VideoRepositoryImpl(HttpClient),
-      ).uploadVideo(formData, Router.query.challengeID as string);
+      ).uploadVideo(formData, router.query.challengeID as string);
 
       if (serverResponse) {
         // aptos join
@@ -70,7 +72,7 @@ export default function UploadVideo() {
         console.log(response);
         // if you want to wait for transaction
         await aptosClient.waitForTransaction(response?.hash || '');
-        response?.hash && serverResponse && Router.push('/video/upload_complete');
+        response?.hash && serverResponse && router.push('/video/upload_complete');
       }
     } catch (err) {
       console.error(err);
