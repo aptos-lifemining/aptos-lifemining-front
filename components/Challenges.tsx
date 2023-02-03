@@ -36,7 +36,7 @@ export default function Challenges({ challenges, title }: Props) {
               <div className="background">
                 <div className="challenge-title">
                   {challenge.title}
-                  <br /> {challenge.subTitle}
+                  {/* <br /> {challenge.subTitle} */}
                 </div>
                 <div className="challenge-fee">
                   {challenge.stakingAPT}
