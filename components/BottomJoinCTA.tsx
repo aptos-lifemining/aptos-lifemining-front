@@ -78,7 +78,7 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
         {
           pathname: '/video/upload',
           query: {
-            videoUrl: reader.result,
+            videoUrl: reader.result as string,
             fileName: file.name,
             challengeID: challenge.id,
             hostAddress: hostAddress,
