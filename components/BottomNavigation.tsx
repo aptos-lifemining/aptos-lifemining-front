@@ -21,7 +21,7 @@ export default function BottomNavigation() {
         {
           pathname: '/video/upload',
           query: {
-            videoUrl: reader.result,
+            videoUrl: reader.result as string,
             fileName: file.name,
           },
         },

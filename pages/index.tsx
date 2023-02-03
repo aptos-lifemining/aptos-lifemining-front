@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Challenge } from '../entity/challenge';
+import { User } from '../entity/user';
 import HttpClient from '../network/httpClient';
 import ChallengeRepositoryImpl from '../repository/challenge';
 import UserRepositoryImpl from '../repository/user';
@@ -7,7 +9,7 @@ import HomeTemplate from '../template/Home';
 import ChallengeUseCase from '../usecase/challenge';
 import UserUseCase from '../usecase/user';
 
-export default function Home({ challenges, users }) {
+export default function Home({ challenges, users }: { challenges: Challenge[]; users: User[] }) {
   return <HomeTemplate challenges={challenges} users={users} />;
 }
 

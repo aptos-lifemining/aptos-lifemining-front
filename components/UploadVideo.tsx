@@ -1,10 +1,11 @@
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import { Types } from 'aptos';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Router from 'next/router';
-import React, { useEffect, useState } from 'react';
 
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { Types } from 'aptos';
 import styled from 'styled-components';
+
 import { aptosClient } from '../network/aptos';
 import HttpClient from '../network/httpClient';
 import VideoRepositoryImpl from '../repository/video';
@@ -43,7 +44,7 @@ export default function UploadVideo() {
       Router.replace('/');
     }
     setPreviewUrl(Router.query.videoUrl);
-    setFile(base64StringToFile(Router.query.videoUrl, Router.query.fileName));
+    setFile(base64StringToFile(Router.query.videoUrl as string, Router.query.fileName as string));
   }, []);
 
   const handleUpload = async () => {

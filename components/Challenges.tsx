@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function Challenges({ challenges, title }: Props) {
-  const handleClickCard = (id: string) => {
+  const handleClickCard = (id: number) => {
     Router.push(`/challenge/${id}`);
   };
   return (
@@ -36,7 +36,7 @@ export default function Challenges({ challenges, title }: Props) {
               <div className="background">
                 <div className="challenge-title">
                   {challenge.title}
-                  <br /> {challenge.subtitle}
+                  <br /> {challenge.subTitle}
                 </div>
                 <div className="challenge-fee">
                   {challenge.stakingAPT}

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import ProfileIcon from './ProfileIcon';
 
-export default function Stories({ users }) {
+export default function Stories({ users }: { users: any[] }) {
   console.log('>>>>>>>>>>> users', users);
   return (
     <StoriesContainer>
