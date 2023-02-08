@@ -4,6 +4,17 @@ Frontend for **LifeMining** service
 
 __(Project from Aptos Seoul Hackathon 2023)__
 
+The Life Mining solution involves connecting real life and digital life through the use of video and NFTs. Creators and followers can participate in challenges and document the process with videos. By completing the challenge, they can earn rewards and create a shared NFT to commemorate their achievement.
+
+1. Challenge: The   sets a challenge, and followers can stake tokens (APT) on it.
+2. Record: Followers upload videos periodically to document their progress and when the challenge is complete, they can apply for a claim.
+3. Mine: Followers can earn prize money (which is deducted if they fail), grow their own dynamic NFTs, and mint the group's challenge certification video as an NFT.
+
+Life Mining allows creators and followers to create and share ownership of an NFT during a challenge. Some potential use cases include:
+- [Education] To increase completion rates of educational programs, the challenge process can be recorded and celebrated with an NFT.
+- [Entertainment] In the entertainment industry, idols can hold dance challenges with fans and share the rewards through an NFT.
+- [Sports] In the sports industry, companies like NIKE can release new products and incentivize people to participate in a daily running challenge, rewarding those who complete it with prizes and NFTs. This creates a more meaningful experience where people don't just consume, but also participate and feel a sense of ownership.
+
 
 ## Getting Started
 
