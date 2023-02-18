@@ -38,6 +38,11 @@ class UserUseCase {
     const data = await this.UserRepository.getUsers();
     return data;
   }
+
+  public async upgradeUser() {
+    const data = await this.UserRepository.upgradeUser();
+    return data;
+  }
 }
 
 export default UserUseCase;

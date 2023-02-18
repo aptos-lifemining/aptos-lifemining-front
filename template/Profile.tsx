@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Router from 'next/router';
 
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { Types } from 'aptos';
 import styled, { css } from 'styled-components';
 
 import BorderButton from '../components/BorderButton';
 import BottomNavigation from '../components/BottomNavigation';
 import BottomSheet from '../components/BottomSheet';
+import { aptosClient } from '../network/aptos';
 import HttpClient from '../network/httpClient';
 import ChallengeRepositoryImpl from '../repository/challenge';
 import UserRepositoryImpl from '../repository/user';
 import ChallengeUseCase from '../usecase/challenge';
 import UserUseCase from '../usecase/user';
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import { Types } from 'aptos';
-import { aptosClient } from '../network/aptos';
 
 export default function ProfileTemplate() {
   const {
@@ -103,8 +103,15 @@ export default function ProfileTemplate() {
       <div className="background">
         {totalRecords?.filter((record) => record.claimable).length > 0 && (
           <ButtonContainer>
-            <BorderButton width={181} height={41} buttonColor="#000000">
-              Update My room
+            <BorderButton
+              width={181}
+              height={41}
+              buttonColor="#000000"
+              onClick={async () => {
+                setUser(await new UserUseCase(new UserRepositoryImpl(HttpClient)).upgradeUser());
+              }}
+            >
+              Upgrade My room
             </BorderButton>
           </ButtonContainer>
         )}

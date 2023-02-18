@@ -1,5 +1,4 @@
 import { AxiosInstance } from 'axios';
-import { TotalRecord } from '../entity/totalRecord';
 
 import { User } from '../entity/user';
 
@@ -7,6 +6,7 @@ export interface UserRepository {
   getUser(): any;
   registerUser(formData: any): any;
   getUsers(): any;
+  upgradeUser(): any;
 }
 
 class UserRepositoryImpl implements UserRepository {
@@ -30,6 +30,12 @@ class UserRepositoryImpl implements UserRepository {
 
   public async getUsers(): Promise<User> {
     const { data } = await this.client.get(`/users`);
+
+    return data;
+  }
+
+  public async upgradeUser() {
+    const { data } = await this.client.post(`/users/upgrade`);
 
     return data;
   }
