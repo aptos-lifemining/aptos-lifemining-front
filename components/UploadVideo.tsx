@@ -17,18 +17,7 @@ import HeaderNavigation from './HeaderNavigation';
 import Video from './Video';
 
 export default function UploadVideo() {
-  const {
-    connect,
-    account,
-    network,
-    connected,
-    disconnect,
-    wallet,
-    wallets,
-    signAndSubmitTransaction,
-    signTransaction,
-    signMessage,
-  } = useWallet();
+  const { signAndSubmitTransaction } = useWallet();
 
   const router = useRouter();
 
@@ -36,8 +25,6 @@ export default function UploadVideo() {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const videoUrl = router.query.videoUrl;
-  const fileName = router.query.fileName;
   const challengeID = router.query.challengeID;
   const hostAddress = router.query.hostAddress;
 

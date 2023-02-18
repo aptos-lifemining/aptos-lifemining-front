@@ -14,6 +14,7 @@ import BorderButton from './BorderButton';
 const aptosClient = new AptosClient(process.env.NEXT_PUBLIC_APTOS_NODE_ADDRESS);
 
 export default function BottomJoinCTA({ challenge, totalRecord }: any) {
+  const { signAndSubmitTransaction } = useWallet();
   const router = useRouter();
   const challengeID = router.query.id;
   const hostAddress = challenge.creator.address;
@@ -26,19 +27,6 @@ export default function BottomJoinCTA({ challenge, totalRecord }: any) {
     setIsJoined(totalRecord ? true : false);
     setDayNumber(totalRecord ? totalRecord.participationDays + 1 : 0);
   }, [totalRecord]);
-
-  const {
-    connect,
-    account,
-    network,
-    connected,
-    disconnect,
-    wallet,
-    wallets,
-    signAndSubmitTransaction,
-    signTransaction,
-    signMessage,
-  } = useWallet();
 
   const handleJoinClick = async () => {
     // challenge join

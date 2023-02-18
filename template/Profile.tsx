@@ -42,6 +42,7 @@ export default function ProfileTemplate() {
   });
 
   const [totalRecords, setTotalRecords] = React.useState([]);
+  const [isUpdatedRoom, setIsUpdatedRoom] = React.useState(false);
 
   async function getRecords() {
     const recordsResponse = await new ChallengeUseCase(
@@ -99,7 +100,7 @@ export default function ProfileTemplate() {
   };
 
   return (
-    <Container roomImageUrl={user.roomImageUrl}>
+    <Container roomImageUrl={isUpdatedRoom ? '' : ''}>
       <div className="background">
         {totalRecords?.filter((record) => record.claimable).length > 0 && (
           <ButtonContainer>
