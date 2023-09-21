@@ -1,4 +1,5 @@
 # Lifemining-frontend
+## 🥇1st Place Winner @AptosSeoulHackathon
 
 Frontend for **LifeMining** service
 
