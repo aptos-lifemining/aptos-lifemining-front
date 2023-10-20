@@ -1,6 +1,7 @@
 # Lifemining-frontend
 ## 🥇1st Place Winner @AptosSeoulHackathon
 
+
 Frontend for **LifeMining** service
 
 __(Project from Aptos Seoul Hackathon 2023)__
@@ -16,7 +17,9 @@ Life Mining allows creators and followers to create and share ownership of an NF
 - [Entertainment] In the entertainment industry, idols can hold dance challenges with fans and share the rewards through an NFT.
 - [Sports] In the sports industry, companies like NIKE can release new products and incentivize people to participate in a daily running challenge, rewarding those who complete it with prizes and NFTs. This creates a more meaningful experience where people don't just consume, but also participate and feel a sense of ownership.
 
+https://aptosfoundation.org/currents/aptos-world-tour-seoul-hack-recap-2023
 
+https://www.youtube.com/watch?v=mINA2FT3Zyc
 ## Getting Started
 
 **Prerequisites**
